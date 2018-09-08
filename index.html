@@ -242,6 +242,132 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/08/对redux的理解以及结合react的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/08/对redux的理解以及结合react的使用/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-08T10:49:11+08:00">
+                2018-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-Redux是什么？"><a href="#1-Redux是什么？" class="headerlink" title="1.Redux是什么？"></a>1.Redux是什么？</h1><p>官方定义是：对于JavaScript应用而已，Redux是一个可预测状态的“容器”。</p>
+<h2 id="设计哲学："><a href="#设计哲学：" class="headerlink" title="设计哲学："></a>设计哲学：</h2><ol>
+<li>数据来源单一性。不论是像计数器一样，还是复杂的聊天系统，我们都使用一个JavaScript对象来表述整个状态机的全部状态，并存储到store当中，而这个store是唯一的。获取状态：<code>let state = store.getState();</code></li>
+<li>状态是只读的。即<code>store.getState()</code>返回的结果是只读的，不允许改变它。当页面需要新的数据状态时再生成一颗全新的状态数据树，使得<code>store.getState()</code>返回一个全新的JavaScript对象。Redux规定：当页面需要展现新的数据状态时，我们只需要<strong>dispatch</strong>一个<strong>action</strong>即可。</li>
+<li>使用reducer函数来接收action，并执行页面状态数据树的变更。经过reducer函数处理之后，<code>store.getState()</code>就会返回新页面的数据状态。当然，经过reducer函数根据处理后，返回一个新的JavaScript对象，而不会对原返回值进行更改。reducer并不直接更改页面的状态数据树，而是根据action产生一颗新的页面状态数，并把它应用在<code>store.getState()</code>当中。<br>reducer和action需要开发者编写，reducer接收两个参数：当前的页面数据状态和被派发的action<br><code>(previousState,action) =&gt; newState</code></li>
+</ol>
+<p><em>注：读完《React状态管理与同构实战》的理解</em></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/08/javascript零碎知识/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -789,7 +915,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
