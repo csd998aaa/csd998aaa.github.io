@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="记录前端&amp;Node.js以及生活琐事">
 <meta property="og:description" content="1.Redux是什么？官方定义是：对于JavaScript应用而已，Redux是一个可预测状态的“容器”。 设计哲学： 数据来源单一性。不论是像计数器一样，还是复杂的聊天系统，我们都使用一个JavaScript对象来表述整个状态机的全部状态，并存储到store当中，而这个store是唯一的。获取状态：let state = store.getState(); 状态是只读的。即store.getSt">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-08T03:22:25.223Z">
+<meta property="og:updated_time" content="2018-09-08T09:31:08.484Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对redux的理解以及结合react的使用">
 <meta name="twitter:description" content="1.Redux是什么？官方定义是：对于JavaScript应用而已，Redux是一个可预测状态的“容器”。 设计哲学： 数据来源单一性。不论是像计数器一样，还是复杂的聊天系统，我们都使用一个JavaScript对象来表述整个状态机的全部状态，并存储到store当中，而这个store是唯一的。获取状态：let state = store.getState(); 状态是只读的。即store.getSt">
@@ -313,9 +313,18 @@
 <h2 id="设计哲学："><a href="#设计哲学：" class="headerlink" title="设计哲学："></a>设计哲学：</h2><ol>
 <li>数据来源单一性。不论是像计数器一样，还是复杂的聊天系统，我们都使用一个JavaScript对象来表述整个状态机的全部状态，并存储到store当中，而这个store是唯一的。获取状态：<code>let state = store.getState();</code></li>
 <li>状态是只读的。即<code>store.getState()</code>返回的结果是只读的，不允许改变它。当页面需要新的数据状态时再生成一颗全新的状态数据树，使得<code>store.getState()</code>返回一个全新的JavaScript对象。Redux规定：当页面需要展现新的数据状态时，我们只需要<strong>dispatch</strong>一个<strong>action</strong>即可。</li>
-<li>使用reducer函数来接收action，并执行页面状态数据树的变更。经过reducer函数处理之后，<code>store.getState()</code>就会返回新页面的数据状态。当然，经过reducer函数根据处理后，返回一个新的JavaScript对象，而不会对原返回值进行更改。reducer并不直接更改页面的状态数据树，而是根据action产生一颗新的页面状态数，并把它应用在<code>store.getState()</code>当中。<br>reducer和action需要开发者编写，reducer接收两个参数：当前的页面数据状态和被派发的action<br><code>(previousState,action) =&gt; newState</code></li>
+<li>使用reducer函数来接收action，并执行页面状态数据树的变更。经过reducer函数处理之后，<code>store.getState()</code>就会返回新页面的数据状态。当然，经过reducer函数根据处理后，返回一个新的JavaScript对象，而不会对原返回值进行更改，因此reducer是一个纯函数。reducer并不直接更改页面的状态数据树，而是根据action产生一颗新的页面状态数，并把它应用在<code>store.getState()</code>当中。<br>reducer和action需要开发者编写，reducer接收两个参数：当前的页面数据状态和被派发的action<br><code>(previousState,action) =&gt; newState</code></li>
 </ol>
-<p><em>注：读完《React状态管理与同构实战》的理解</em></p>
+<h1 id="2-Redux基本使用和实践"><a href="#2-Redux基本使用和实践" class="headerlink" title="2.Redux基本使用和实践"></a>2.Redux基本使用和实践</h1><h2 id="store"><a href="#store" class="headerlink" title="store"></a>store</h2><p>store是一个可预测状态的“容器”，保存着整个页面状态数据树，提供了重要的API。<br>API:</p>
+<ul>
+<li>dispatch(action)：派发action。</li>
+<li>subscribe(listener)：订阅页面数据状态，即store中state的变化。</li>
+<li>getState：获取当前页面状态数据树，即store中的state。</li>
+<li>replaceReducer(nextReducer)：一般用不到…我也不知道用来干嘛的？<br>创建store<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer,preloadedState,enhancer);</span><br><span class="line"><span class="comment">// reducer：为开发者编写的reducer函数，必需。</span></span><br><span class="line"><span class="comment">// preloadedState：页面数据状态数的初始数据，可选。</span></span><br><span class="line"><span class="comment">// enhancer：增强器，函数类型，可选。一般接入中间件applyMiddleware(middleware)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="action"><a href="#action" class="headerlink" title="action"></a>action</h2><p>action描述了状态变更的信息，也就是需要页面做出的变化。这是由开发者定义并借助store.dispatch()派发的。action也是一个对象，Redux规定：action对象需要有一个type属性，作为确定这个action的名称。<br>action构造器一般为：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> actionCreator = <span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">    type:<span class="string">'ACTION_TYPE'</span>,</span><br><span class="line">    data</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后使用dispatch派发action，dispatch来自store对象暴露的方法，负责派发action，这个action将作为dispatch的参数。<br><code>store.dispatch(actionCreator(&#39;这里是数据&#39;)); // 派发上面的action</code><br><em>注：读完《React状态管理与同构实战》的理解</em></p>
 
       
     </div>
@@ -462,7 +471,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Redux是什么？"><span class="nav-number">1.</span> <span class="nav-text">1.Redux是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计哲学："><span class="nav-number">1.1.</span> <span class="nav-text">设计哲学：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Redux是什么？"><span class="nav-number">1.</span> <span class="nav-text">1.Redux是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设计哲学："><span class="nav-number">1.1.</span> <span class="nav-text">设计哲学：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Redux基本使用和实践"><span class="nav-number">2.</span> <span class="nav-text">2.Redux基本使用和实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#store"><span class="nav-number">2.1.</span> <span class="nav-text">store</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#action"><span class="nav-number">2.2.</span> <span class="nav-text">action</span></a></li></ol></li></ol></div>
             
 
           </div>
