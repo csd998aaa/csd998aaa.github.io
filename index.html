@@ -341,7 +341,43 @@
 <h2 id="Redux中间件和异步"><a href="#Redux中间件和异步" class="headerlink" title="Redux中间件和异步"></a>Redux中间件和异步</h2><h3 id="初始Redux中间件"><a href="#初始Redux中间件" class="headerlink" title="初始Redux中间件"></a>初始Redux中间件</h3><p>中间件可以在派发任何一个action和执行reducer这两步之间，添加自定扩展功能，例如 异步请求、日志打印等等。<br>流程如图：<br><img src="/articleImgs/middleware角色图.png" alt="avatar"><br>中间件可以在action到达reducer之前进行日志记录、中断action触发，甚至修改action，或者不进行处理。可以接入多个中间件。<br>使用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore,applyMiddleware &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span>;</span><br><span class="line"><span class="keyword">import</span> createLogger <span class="keyword">from</span> <span class="string">'redux-logger'</span>;</span><br><span class="line"><span class="keyword">const</span> logger = createLogger();</span><br><span class="line"><span class="keyword">const</span> store = createStore(</span><br><span class="line">    reducer,</span><br><span class="line">    applyMiddleware(thunk,logger) <span class="comment">// 注意这里的logger要放在所有中间件最后方可生效！</span></span><br><span class="line">)</span><br><span class="line"><span class="comment">// 这里省略了第二个参数，如果有初始化数据，那么applyMiddleware(...arg)将作为第三个参数</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="Redux的异步处理"><a href="#Redux的异步处理" class="headerlink" title="Redux的异步处理"></a>Redux的异步处理</h3><p>dispatch()派发的默认参数只能是一个JavaScript对象，如果要异步处理，则dispatch()接收一个函数为参数，在函数体内进行异步操作，并在异步完成后在派发相应的action。<br>而redux-thunk中间件正是解决了异步处理问题！<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入redux创建store和应用中间件等代码省略...</span></span><br><span class="line">store.dispatch(fetchNewBook(<span class="string">'learnRedux'</span>));</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchNewBook</span>(<span class="params">book</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">dispatch</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 即将请求，可在对应reducer处理渲染“转圈圈”的UI</span></span><br><span class="line">        dispatch(&#123;</span><br><span class="line">            type:<span class="string">'START_FETCH_NEW_BOOK'</span>,</span><br><span class="line">            data:book</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// ajax请求</span></span><br><span class="line">        ajax(&#123;</span><br><span class="line">            url:<span class="string">`/api/<span class="subst">$&#123;book&#125;</span>.json`</span>,</span><br><span class="line">            type:<span class="string">'POST'</span>,</span><br><span class="line">            data:&#123;&#125;</span><br><span class="line">        &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 请求成功后reducer根据action.data（即res)来进行页面状态更新</span></span><br><span class="line">            dispatch(&#123;</span><br><span class="line">                type:<span class="string">'FETCH_NEW_BOOK_SUCCESS'</span>,</span><br><span class="line">                data:res</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>整体的过程如图：<br><img src="/articleImgs/redux-thunk中间件角色图.png" alt="avatar"><br>redux-thunk对于异步处理的关键在于：使dispatch能够接收异步函数，我们完全可以控制dispatch响应action的时机。</p>
-<h1 id="4-结合react使用redux"><a href="#4-结合react使用redux" class="headerlink" title="4.结合react使用redux"></a>4.结合react使用redux</h1><h2 id="使用react-redux库"><a href="#使用react-redux库" class="headerlink" title="使用react-redux库"></a>使用react-redux库</h2><p>react-redux是对React和Redux进行了连接，对Redux的方法进行了封装和增强，使得使用起来非常方便。<br><strong>容器组件：</strong>指数据状态和逻辑的容器。它并不负责展示，而是只维护内部状态，进行数据分发和处理派发action。因此容器组件对Reudx是感知的，可以使用Redux的API，比如dispatch()等。<br><strong>展示组件：</strong>只负责接收相应的数据，完成页面展示，它本身并不维护数据和状态。实际上，为了渲染页面，展示组件所需要的所有数据都由容器组件通过<strong>props</strong>层层传递。<br><img src="/articleImgs/容器组件和展示组件.png" alt="avatar"><br>|   | 展示组件 | 容器组件 |<br>| :——| ——: | :——: |<br>| 目的 | 展示内容 | 处理数据和逻辑 |<br>| 是否感知Redux | 不感知 | 感知 |<br>| 数据来源 | 从props获取 | 从Redux state订阅获取 |<br>| 改变数据 | 通过回调props派发action | 直接派发action |<br>| 由谁编写 | 开发者 | 由react-redux库生产 |</p>
+<h1 id="4-结合react使用redux"><a href="#4-结合react使用redux" class="headerlink" title="4.结合react使用redux"></a>4.结合react使用redux</h1><h2 id="使用react-redux库"><a href="#使用react-redux库" class="headerlink" title="使用react-redux库"></a>使用react-redux库</h2><p>react-redux是对React和Redux进行了连接，对Redux的方法进行了封装和增强，使得使用起来非常方便。<br><strong>容器组件：</strong>指数据状态和逻辑的容器。它并不负责展示，而是只维护内部状态，进行数据分发和处理派发action。因此容器组件对Reudx是感知的，可以使用Redux的API，比如dispatch()等。<br><strong>展示组件：</strong>只负责接收相应的数据，完成页面展示，它本身并不维护数据和状态。实际上，为了渲染页面，展示组件所需要的所有数据都由容器组件通过<strong>props</strong>层层传递。<br><img src="/articleImgs/容器组件和展示组件.png" alt="avatar"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">描述</th>
+<th style="text-align:right">展示组件</th>
+<th style="text-align:center">容器组件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">目的</td>
+<td style="text-align:right">展示内容</td>
+<td style="text-align:center">处理数据和逻辑</td>
+</tr>
+<tr>
+<td style="text-align:left">是否感知Redux</td>
+<td style="text-align:right">不感知</td>
+<td style="text-align:center">感知</td>
+</tr>
+<tr>
+<td style="text-align:left">数据来源</td>
+<td style="text-align:right">从props获取</td>
+<td style="text-align:center">从Redux state订阅获取</td>
+</tr>
+<tr>
+<td style="text-align:left">改变数据</td>
+<td style="text-align:right">通过回调props派发action</td>
+<td style="text-align:center">直接派发action</td>
+</tr>
+<tr>
+<td style="text-align:left">由谁编写</td>
+<td style="text-align:right">开发者</td>
+<td style="text-align:center">由react-redux库生产</td>
+</tr>
+</tbody>
+</table>
 <p>react-redux有个最重要的方法：<strong>connect()</strong><br><code>connect([mapStateToProps],[mapDispatchToProps],[mergeProps],[options]);</code><br>connect()是用来连接容器组件和展示组件。它的核心是将开发者定义的组件，包装转换生成容器组件。所生成的容器组件能使用Redux store中的那些数据，全由connect()的参数来确定。<br>一般用法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">connect(mapStateToProps,mapDispatchToProps)(presentationalComponent);</span><br></pre></td></tr></table></figure></p>
 <p>第一次执行的第一个参数是一个函数，其作用是给返回的组件注入props，这个props来自Redux store中的状态。所以这个函数一定要返回一个纯JavaScript对象。第一次的第二个参数可以是一个函数也可以是一个对象，如果是一个函数，则这个函数接收dispatch()以及容器的props作为参数，最终也返回一个对象；如果是一个对象，那么兼键值应该是一个函数，用来描述action的生成。第二次执行的参数是接收一个正常的展示组件，并在这基础上返回一个容器组件。<br>mapStateToProps一般编写形式如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mapStateToProps = <span class="function">(<span class="params">state</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        value:state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>它完成从store中选取数据并通过props传递给将要创建的容器组件。</p>
