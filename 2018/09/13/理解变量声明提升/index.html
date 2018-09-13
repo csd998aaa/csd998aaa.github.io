@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Hello Node.js">
+<meta name="description" content="JavaScript采用的是词法作用域，是指作用域在函数定义的地方。与之对应的是动态作用域，指作用域在函数调用的地方。JavaScript中变量是函数级作用域而不是块级作用域（即变量定义的作用域并不是离最近的封闭语句或者代码块，而是包含它们的函数），ES5的try{}catch除外，ES6开始支持。变量声明提升：函数声明和变量声明总是被JavaScript解释器提升到包含它们的作用域顶部。1234">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Node.js">
-<meta property="og:url" content="http://yoursite.com/2018/09/04/node.js/index.html">
+<meta property="og:title" content="理解变量声明提升以及作用域">
+<meta property="og:url" content="http://yoursite.com/2018/09/13/理解变量声明提升/index.html">
 <meta property="og:site_name" content="记录前端&amp;Node.js以及生活琐事">
-<meta property="og:description" content="Hello Node.js">
+<meta property="og:description" content="JavaScript采用的是词法作用域，是指作用域在函数定义的地方。与之对应的是动态作用域，指作用域在函数调用的地方。JavaScript中变量是函数级作用域而不是块级作用域（即变量定义的作用域并不是离最近的封闭语句或者代码块，而是包含它们的函数），ES5的try{}catch除外，ES6开始支持。变量声明提升：函数声明和变量声明总是被JavaScript解释器提升到包含它们的作用域顶部。1234">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-04T14:57:24.671Z">
+<meta property="og:updated_time" content="2018-09-13T13:05:06.637Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Node.js">
-<meta name="twitter:description" content="Hello Node.js">
+<meta name="twitter:title" content="理解变量声明提升以及作用域">
+<meta name="twitter:description" content="JavaScript采用的是词法作用域，是指作用域在函数定义的地方。与之对应的是动态作用域，指作用域在函数调用的地方。JavaScript中变量是函数级作用域而不是块级作用域（即变量定义的作用域并不是离最近的封闭语句或者代码块，而是包含它们的函数），ES5的try{}catch除外，ES6开始支持。变量声明提升：函数声明和变量声明总是被JavaScript解释器提升到包含它们的作用域顶部。1234">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/04/node.js/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/13/理解变量声明提升/"/>
 
 
 
 
 
-  <title>Node.js | 记录前端&Node.js以及生活琐事</title>
+  <title>理解变量声明提升以及作用域 | 记录前端&Node.js以及生活琐事</title>
   
 
 
@@ -242,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/04/node.js/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/理解变量声明提升/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="csd">
@@ -259,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Node.js</h1>
+          <h1 class="post-title" itemprop="name headline">理解变量声明提升以及作用域</h1>
         
 
         <div class="post-meta">
@@ -271,8 +271,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T22:57:01+08:00">
-                2018-09-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T19:33:26+08:00">
+                2018-09-13
               </time>
             
 
@@ -309,7 +309,8 @@
       
 
       
-        <p>Hello Node.js</p>
+        <p>JavaScript采用的是<strong>词法作用域</strong>，是指作用域在函数定义的地方。与之对应的是<strong>动态作用域</strong>，指作用域在函数调用的地方。<br>JavaScript中变量是函数级作用域而不是块级作用域（即变量定义的作用域并不是离最近的封闭语句或者代码块，而是包含它们的函数），ES5的try{}catch除外，ES6开始支持。<br>变量声明提升：函数声明和变量声明总是被JavaScript解释器提升到包含它们的作用域顶部。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">	<span class="keyword">var</span> num;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++) &#123;</span><br><span class="line">		num = i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'i'</span>,i); <span class="comment">// num 3</span></span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'num'</span>,num); <span class="comment">// num 2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 相当于以下</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">	<span class="keyword">var</span> num,i;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++) &#123;</span><br><span class="line">		num = i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'i'</span>,i); <span class="comment">// num 3</span></span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">'num'</span>,num); <span class="comment">// num 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>要注意变量声明中，赋值是不会提升的（赋值函数也是），仅仅是变量名字被提升了。而函数声明则是整个函数体被提升。</p>
 
       
     </div>
@@ -334,8 +335,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/04/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2018/09/12/理解JavaScript数据结构与算法/" rel="next" title="理解JavaScript数据结构与算法">
+                <i class="fa fa-chevron-left"></i> 理解JavaScript数据结构与算法
               </a>
             
           </div>
@@ -343,10 +344,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/05/DOM操作/" rel="prev" title="DOM的基本操作">
-                DOM的基本操作 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
