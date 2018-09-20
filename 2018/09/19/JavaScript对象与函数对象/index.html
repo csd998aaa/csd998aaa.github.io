@@ -88,7 +88,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/09/19/JavaScript对象与函数对象/15372710911402.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/09/19/JavaScript对象与函数对象/15372718119315.jpg">
-<meta property="og:updated_time" content="2018-09-19T07:36:29.596Z">
+<meta property="og:updated_time" content="2018-09-20T12:56:50.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript对象与函数对象">
 <meta name="twitter:description" content="函数对象与其他对象的区别JavaScript中的函数和其他对象最大的区别在于它们有一个特殊的内部属性[[Call]]，包含了该函数的执行指令。typeof操作符会在对象内查找这个内部属性，若找到则返回”function” call() apply() bind() 三者的区别第一个参数都是传给新函数this的值，call()和apply()的区别仅传人参数形式不同，call()第二个参数起接收参数">
@@ -315,7 +315,7 @@
         <h2 id="函数对象与其他对象的区别"><a href="#函数对象与其他对象的区别" class="headerlink" title="函数对象与其他对象的区别"></a>函数对象与其他对象的区别</h2><p>JavaScript中的函数和其他对象最大的区别在于它们有一个特殊的内部属性[[Call]]，包含了该函数的执行指令。typeof操作符会在对象内查找这个内部属性，若找到则返回”function”</p>
 <h2 id="call-apply-bind-三者的区别"><a href="#call-apply-bind-三者的区别" class="headerlink" title="call() apply() bind() 三者的区别"></a>call() apply() bind() 三者的区别</h2><p>第一个参数都是传给新函数this的值，call()和apply()的区别仅传人参数形式不同，call()第二个参数起接收参数列表，而apply()第二个参数接收数组或类数组。而bind()跟call()一样，不同的是第二个参数起会被永久设置在新函数中的形参。</p>
 <h2 id="JavaScript对象定义属性"><a href="#JavaScript对象定义属性" class="headerlink" title="JavaScript对象定义属性"></a>JavaScript对象定义属性</h2><p>当一个属性第一次被添加对象时，JavaScript在对象上调用一个名为[[Put]]的内部方法。[[Put]]方法会在对象上创建一个新节点来保存属性，这个操作不仅指定了初始的值，也定义了属性上的一些特征。<br>当一个已有属性被赋予新值时，调用的是[[Set]]方法。<br>delete操作符会对单个对象属性调用名为[[Delete]]内部方法。delete仅对自有属性有效。</p>
-<h2 id="查找对象属性"><a href="#查找对象属性" class="headerlink" title="查找对象属性"></a>查找对象属性</h2><p>in操作符会检查自有属性和原型属性<br>hasOwnProperty()只检查自有属性<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="查找对象属性"><a href="#查找对象属性" class="headerlink" title="查找对象属性"></a>查找对象属性</h2><p>in操作符会检查自有属性和原型属性<br>hasOwnProperty()只检查自有属性</p>
 <h2 id="属性枚举"><a href="#属性枚举" class="headerlink" title="属性枚举"></a>属性枚举</h2><p>for-in循环返回的和Object.keys()返回的可枚举属性的区别：for-in循环遍历自有属性和原型属性，而Object.keys()只返回自有属性名字的数组。</p>
 <h2 id="属性通用特征"><a href="#属性通用特征" class="headerlink" title="属性通用特征"></a>属性通用特征</h2><p>数据和访问器属性都具有[[Enumerable]]和[[Configurable]]（布尔值）。如果想改变属性特征，可以使用Object.defineProperty(obj,proName,descript)，当调用这个方法时，应该要指定descript所有值，否则布尔类型的值都是false。<br>定义多重属性可以用Object.defineProperties(obj,proObj)<br>获取属性特征可以用Object.getOwnPropertyDescriptor(obj,proName)</p>
 <h2 id="数据属性特征"><a href="#数据属性特征" class="headerlink" title="数据属性特征"></a>数据属性特征</h2><p>[[Value]]所有属性的值都保存在这。<br>[[Writable]]是一个布尔值，指示该属性是否可以写入。</p>
