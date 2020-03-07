@@ -293,19 +293,7 @@ var _hmt = _hmt || [];
             
 
             
-              <span class="post-meta-divider">|</span>
-            
 
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-03-06T12:43:17+08:00">
-                2020-03-06
-              </time>
             
           </span>
 
@@ -348,7 +336,7 @@ var _hmt = _hmt || [];
 动画效果（会不会动）
 事件（有什么行为）
 
-常用 UIKit 控件使用：UIView - 视图多数组件继承于UIView，所以有
+常用 UIKit 控件使用：UIView - 视图多数组件继承于UIView，所以有很多属性都是通用，如：123view.bounds = CGRect(x: 10, y: 20, width: 100, height:100) // CGRect类型view.bounds.origin = CGPoint(x: 10, y: 20) // 位置view.bounds.size =
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -440,19 +428,7 @@ var _hmt = _hmt || [];
             
 
             
-              <span class="post-meta-divider">|</span>
-            
 
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-03-04T12:08:41+08:00">
-                2020-03-04
-              </time>
             
           </span>
 
@@ -487,7 +463,7 @@ var _hmt = _hmt || [];
         
           
           根据官网安装介绍，本文使用yum进行安装先安装 先决条件：1sudo yum install yum-utils
-设置 yum 存储库，创建 /etc/yum.repos.d/nginx.repo ，然后使用以下内容：12345678910111213[nginx-stable] name = ng
+设置 yum 存储库，创建 /etc/yum.repos.d/nginx.repo ，然后使用以下内容：12345678910111213[nginx-stable] name = nginx stable repo baseurl = http：//nginx.org/packages/centos/$releasever/$basearch/gpgcheck = 1 enabled = 1 gpgkey = https://nginx.org/keys/nginx_signin
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -579,19 +555,7 @@ var _hmt = _hmt || [];
             
 
             
-              <span class="post-meta-divider">|</span>
-            
 
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-02-26T11:04:55+08:00">
-                2020-02-26
-              </time>
             
           </span>
 
@@ -628,7 +592,7 @@ var _hmt = _hmt || [];
           MySQL安装及配置-Windows（zip版）
 解压mysql目录下创建data和my.ini
 修改配置文件my.ini，按照下方的注释做相应的修改，还有其他参数未写上，官网找咯。
-123456789101112131415161718[client]port=3306[mysql]# 设置mys
+123456789101112131415161718[client]port=3306[mysql]# 设置mysql客户端默认字符集default-character-set=utf8[mysqld]# 设置3306端口port=3306# 设置mysql的安装目录basedir=G:\mysql-5.7.24-winx64# 设置mysql数据库的数据的存放目录datadir=G:\mysql-5.7.24
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -720,19 +684,7 @@ var _hmt = _hmt || [];
             
 
             
-              <span class="post-meta-divider">|</span>
-            
 
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-02-26T11:08:46+08:00">
-                2020-02-26
-              </time>
             
           </span>
 
@@ -767,7 +719,8 @@ var _hmt = _hmt || [];
         
           
           函数对象与其他对象的区别JavaScript中的函数和其他对象最大的区别在于它们有一个特殊的内部属性[[Call]]，包含了该函数的执行指令。typeof操作符会在对象内查找这个内部属性，若找到则返回”function”
-call() apply() bind() 三者的区别第一个参数都是传给新函数
+call() apply() bind() 三者的区别第一个参数都是传给新函数this的值，call()和apply()的区别仅传人参数形式不同，call()第二个参数起接收参数列表，而apply()第二个参数接收数组或类数组。而bind()跟call()一样，不同的是第二个参数起会被永久设置在新函数中的形参。
+JavaScript对象定义属性当一个属性第一次被添加对象时，J
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -859,19 +812,7 @@ call() apply() bind() 三者的区别第一个参数都是传给新函数
             
 
             
-              <span class="post-meta-divider">|</span>
-            
 
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-02-26T11:10:33+08:00">
-                2020-02-26
-              </time>
             
           </span>
 
@@ -905,7 +846,7 @@ call() apply() bind() 三者的区别第一个参数都是传给新函数
       
         
           
-          #作用域JavaScript采用的是词法作用域，是指作用域在函数定义的地方。与之对应的是动态作用域，指作用域在函数调用的地方。JavaScript中变量是函数级作用域而不是块级作用域（即变量定义的作用域并不是离最近的封闭语句或者代码块，而是包含它们的函数），ES5的try{}catch除外，ES6开
+          #作用域JavaScript采用的是词法作用域，是指作用域在函数定义的地方。与之对应的是动态作用域，指作用域在函数调用的地方。JavaScript中变量是函数级作用域而不是块级作用域（即变量定义的作用域并不是离最近的封闭语句或者代码块，而是包含它们的函数），ES5的try{}catch除外，ES6开始支持。变量声明提升：函数声明和变量声明总是被JavaScript解释器提升到包含它们的作用域顶部。1234567891011121314151617function foo() &#123; 	var num;	for(var i=0;i&lt;3;i++) &#123;		num = i;	&#
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -997,19 +938,7 @@ call() apply() bind() 三者的区别第一个参数都是传给新函数
             
 
             
-              <span class="post-meta-divider">|</span>
-            
 
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-02-26T11:11:22+08:00">
-                2020-02-26
-              </time>
             
           </span>
 
@@ -1043,7 +972,7 @@ call() apply() bind() 三者的区别第一个参数都是传给新函数
       
         
           
-          提前储备知识Array.prototy上常用的方法比较啰嗦，但可以复习一下！~添加元素:push() 方法将一个或多个元素添加到数组的末尾，并返回新数组的长度。unshift() 方法将一个或多个元素添加到数组的开头，并返回新数组的长度。删除元素：pop() 方法从数组中删除最后一个元素，并返回该元
+          提前储备知识Array.prototy上常用的方法比较啰嗦，但可以复习一下！~添加元素:push() 方法将一个或多个元素添加到数组的末尾，并返回新数组的长度。unshift() 方法将一个或多个元素添加到数组的开头，并返回新数组的长度。删除元素：pop() 方法从数组中删除最后一个元素，并返回该元素的值。此方法更改数组的长度。shift() 方法从数组中删除第一个元素，并返回该元素的值。此方法更改数组的长度。如果在一个空数组上调用pop()或shift()，它返回undefined。在任意位置添加或删除元素：splice(start,[deleteCount],[itemN]) 方法通过删除
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1135,19 +1064,7 @@ call() apply() bind() 三者的区别第一个参数都是传给新函数
             
 
             
-              <span class="post-meta-divider">|</span>
-            
 
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-02-26T11:10:59+08:00">
-                2020-02-26
-              </time>
             
           </span>
 
@@ -1182,7 +1099,7 @@ call() apply() bind() 三者的区别第一个参数都是传给新函数
         
           
           1.Redux是什么？官方定义是：对于JavaScript应用而已，Redux是一个可预测状态的“容器”。
-设计哲学：1.数据来源单一性。不论是像计数器一样，还是复杂的聊天系统，我们都使用一个JavaScript对象来表述整个状态机的全部状态，并存储到store当中，而这个store是唯一的。获取状
+设计哲学：1.数据来源单一性。不论是像计数器一样，还是复杂的聊天系统，我们都使用一个JavaScript对象来表述整个状态机的全部状态，并存储到store当中，而这个store是唯一的。获取状态：let state = store.getState();2.状态是只读的。即store.getState()返回的结果是只读的，不允许改变它。当页面需要新的数据状态时再生成一颗全新的状态数据树，使得store.getState()返回一个全新的JavaScript对象。Redux规定：当页面需
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1274,19 +1191,7 @@ call() apply() bind() 三者的区别第一个参数都是传给新函数
             
 
             
-              <span class="post-meta-divider">|</span>
-            
 
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-02-26T11:09:03+08:00">
-                2020-02-26
-              </time>
             
           </span>
 
@@ -1321,7 +1226,14 @@ call() apply() bind() 三者的区别第一个参数都是传给新函数
         
           
           1.闭包概念理解闭包的前提：当某个函数被调用时，会创建一个执行环境及相应的作用域链。然后使用arguments和其他命名参数的值来初始化函数的活动对象。但在作用域链中，外部函数的活动对象始终处于第二位，外部函数的外部函数处于第三位，…直至作为作用域重点的全局执行环境。
-2.使用new调用函数或者说发
+2.使用new调用函数或者说发送构造函数调用会自动执行以下操作
+创建一个全新的对象。
+这个新对象会被执行[[原型]]连接。
+这个新对象会绑定到函数调用的this。
+如果函数没有返回其他对象，那么new表达式中的函数调用回自动返回这个对象。
+
+3.js严格模式下this的指向
+全局作用域中的this在严格模式下，在全局作用域中，t
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1413,19 +1325,7 @@ call() apply() bind() 三者的区别第一个参数都是传给新函数
             
 
             
-              <span class="post-meta-divider">|</span>
-            
 
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-02-26T11:11:37+08:00">
-                2020-02-26
-              </time>
             
           </span>
 
@@ -1459,7 +1359,8 @@ call() apply() bind() 三者的区别第一个参数都是传给新函数
       
         
           
-          1.判断Node类型：someNode.nodeType == 1 // ELEMENT_NODEsomeNode.nodeType == 2 // ATTRIBUTE_NODEsomeNode.nodeType == 3 // TEXT_NODEsomeNode.nodeType == 9 // 
+          1.判断Node类型：someNode.nodeType == 1 // ELEMENT_NODEsomeNode.nodeType == 2 // ATTRIBUTE_NODEsomeNode.nodeType == 3 // TEXT_NODEsomeNode.nodeType == 9 // DOCUMENT_NODE
+2.要了解节点的具体信息可以使用nodeName或nodeValue属性，必须用在ELEMENT_NODE例：123if(someNode.nodeType === 1) &#123;    value = someNode.nodeName; // nodeName 的
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1551,19 +1452,7 @@ call() apply() bind() 三者的区别第一个参数都是传给新函数
             
 
             
-              <span class="post-meta-divider">|</span>
-            
 
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-02-26T11:08:23+08:00">
-                2020-02-26
-              </time>
             
           </span>
 
