@@ -1,85 +1,26 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.7.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="1.判断Node类型：someNode.nodeType == 1 // ELEMENT_NODEsomeNode.nodeType == 2 // ATTRIBUTE_NODEsomeNode.nodeType == 3 // TEXT_NODEsomeNode.nodeType == 9 // DOCUMENT_NODE 2.要了解节点的具体信息可以使用nodeName或nodeValue属性">
+  <meta name="description" content="1.判断Node类型：someNode.nodeType == 1 // ELEMENT_NODEsomeNode.nodeType == 2 // ATTRIBUTE_NODEsomeNode.nodeType == 3 // TEXT_NODEsomeNode.nodeType == 9 // DOCUMENT_NODE 2.要了解节点的具体信息可以使用nodeName或nodeValue属性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DOM的基本操作">
 <meta property="og:url" content="http://yoursite.com/2018/09/06/DOM操作/index.html">
@@ -91,53 +32,17 @@
 <meta name="twitter:title" content="DOM的基本操作">
 <meta name="twitter:description" content="1.判断Node类型：someNode.nodeType == 1 // ELEMENT_NODEsomeNode.nodeType == 2 // ATTRIBUTE_NODEsomeNode.nodeType == 3 // TEXT_NODEsomeNode.nodeType == 9 // DOCUMENT_NODE 2.要了解节点的具体信息可以使用nodeName或nodeValue属性">
 
+<link rel="canonical" href="http://yoursite.com/2018/09/06/DOM操作/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
   };
 </script>
-
-<script data-ad-client="ca-pub-4561958275736829" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?cabf99a777a8e54fae1afde2b1c4dac7";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
-<meta name="baidu_union_verify" content="84dabd2f234c0d2e68c6d04a1a412f15">
-
-
-
-  <link rel="canonical" href="http://yoursite.com/2018/09/06/DOM操作/"/>
-
-
-
-
 
   <title>DOM的基本操作 | 记录前端&Node.js以及生活琐事</title>
   
@@ -147,185 +52,144 @@ var _hmt = _hmt || [];
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
 
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">记录前端&Node.js以及生活琐事</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
 <nav class="site-nav">
   
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            关于
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
 
-  
+  </li>
+  </ul>
+
 </nav>
-
-
-
- </div>
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
+  <div class="posts-expand">
+      
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/06/DOM操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="csd">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">DOM的基本操作</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          DOM的基本操作
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-06T10:02:08+08:00">
-                2018-09-06
-              </time>
-            
+              <span class="post-meta-item-text">Posted on</span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>  阅读
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              <time title="Created: 2018-09-06 10:02:08" itemprop="dateCreated datePublished" datetime="2018-09-06T10:02:08+08:00">2018-09-06</time>
             </span>
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-26 11:11:37" itemprop="dateModified" datetime="2020-02-26T11:11:37+08:00">2020-02-26</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <h1 id="1-判断Node类型："><a href="#1-判断Node类型：" class="headerlink" title="1.判断Node类型："></a>1.判断Node类型：</h1><p>someNode.nodeType == 1 // <em>ELEMENT_NODE</em><br>someNode.nodeType == 2 // <em>ATTRIBUTE_NODE</em><br>someNode.nodeType == 3 // <em>TEXT_NODE</em><br>someNode.nodeType == 9 // <em>DOCUMENT_NODE</em></p>
@@ -352,270 +216,156 @@ var _hmt = _hmt || [];
 <h2 id="2）客户区大小"><a href="#2）客户区大小" class="headerlink" title="2）客户区大小"></a>2）客户区大小</h2><p>有关属性有两个：clientWidth和clientHeight<br>clientWidth属性是元素内容区宽度加上左右内边距宽度。<br>clientHeight属性是元素内容区高度加上上下内边距高度。<br>确定浏览器视口大小解决方案：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getViewport</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">document</span>.compatMode == <span class="string">'BackCompat'</span>) &#123;</span><br><span class="line">        <span class="comment">// 首先检查compatMode属性以确定浏览器是否允许在混杂模式，而Safari 3.1之前的版本不支持这个属性则执行else</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            width:<span class="built_in">document</span>.body.clientWidth,</span><br><span class="line">            height:<span class="built_in">document</span>.body.clientHeight</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Chrome、Opera和Firefox大多数情况下在标准模式下，因此执行以下语句</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            width:<span class="built_in">document</span>.documentElement.clientWidth,</span><br><span class="line">            height:<span class="built_in">document</span>.documentElement.clientHeight</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="3）滚动大小"><a href="#3）滚动大小" class="headerlink" title="3）滚动大小"></a>3）滚动大小</h2><p>四个与滚动大小相关的属性：<br>scrollHeight：在没有滚动条的情况下，元素内容的总高度。<br>scrollWidth：在没有滚动条的情况下，元素内容的总宽度。<br>scrollLeft：被隐藏在内容区域左侧的像素数。<br>scrollTop：被隐藏在内容区域上方的像素数。<br>scrollHeight和scrollWidth属性：主要用来确定元素内容的实际大小。<br>// <em>注：IE6之前版本运行在混杂模式下时是<body>元素，因此带有垂直滚动条的页面总高度就是</body></em> <strong>document.documentElement.scrollHeight。</strong><br>scrollLeft和scrollTop属性：通过设置这其中属性可以改变元素的滚动位置。</p>
 
-      
     </div>
-    
-    
-    
 
     
-
     
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
     
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="csd 微信支付"/>
-        <p>微信支付</p>
-      </div>
-    
+        
 
-    
-
-    
-
-  </div>
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>csd
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2018/09/06/DOM操作/" title="DOM的基本操作">http://yoursite.com/2018/09/06/DOM操作/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
 </div>
 
-      </div>
-    
 
-    
+      <footer class="post-footer">
 
-    <footer class="post-footer">
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/09/04/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/08/javascript零碎知识/" rel="prev" title="javascript零碎知识">
-                javascript零碎知识 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-
-
-
-        </div>
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/04/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/09/08/javascript零碎知识/" rel="next" title="javascript零碎知识">
+      javascript零碎知识 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">csd</p>
-              <p class="site-description motion-element" itemprop="description">记录前端以及node.js知识</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">9</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-
-          </nav>
-
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/csd998aaa" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i></a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="csd998aaa@163.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i></a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://weibo.com/u/3739910991" target="_blank" title="Weibo">
-                      
-                        <i class="fa fa-fw fa-weibo"></i></a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-判断Node类型："><span class="nav-number">1.</span> <span class="nav-text">1.判断Node类型：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-要了解节点的具体信息可以使用nodeName或nodeValue属性，必须用在ELEMENT-NODE"><span class="nav-number">2.</span> <span class="nav-text">2.要了解节点的具体信息可以使用nodeName或nodeValue属性，必须用在ELEMENT_NODE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-每个节点都有childNodes属性，它实际上是基于DOM结构动态执行查询的结果，类数组。"><span class="nav-number">3.</span> <span class="nav-text">3.每个节点都有childNodes属性，它实际上是基于DOM结构动态执行查询的结果，类数组。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-父节点：parantNode属性"><span class="nav-number">4.</span> <span class="nav-text">4.父节点：parantNode属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-操作节点："><span class="nav-number">5.</span> <span class="nav-text">5.操作节点：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-插入："><span class="nav-number">5.1.</span> <span class="nav-text">1) 插入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-替换："><span class="nav-number">5.2.</span> <span class="nav-text">2) 替换：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-移除："><span class="nav-number">5.3.</span> <span class="nav-text">3) 移除：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Document类型常见作为HTMLDocument实例的document对象"><span class="nav-number">6.</span> <span class="nav-text">6.Document类型常见作为HTMLDocument实例的document对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-文档信息："><span class="nav-number">6.1.</span> <span class="nav-text">1) 文档信息：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-查找元素："><span class="nav-number">6.2.</span> <span class="nav-text">2) 查找元素：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-特殊集合："><span class="nav-number">6.3.</span> <span class="nav-text">3) 特殊集合：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-所有HTML元素都由HTMLElement类型表示，可直接获取元素所有信息"><span class="nav-number">7.</span> <span class="nav-text">7.所有HTML元素都由HTMLElement类型表示，可直接获取元素所有信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-取得特性"><span class="nav-number">7.1.</span> <span class="nav-text">1) 取得特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-创建元素"><span class="nav-number">7.2.</span> <span class="nav-text">2) 创建元素</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-DOM扩展"><span class="nav-number">8.</span> <span class="nav-text">8.DOM扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-querySelector-和querySelectorAll-可通过Document及Element类型调用，接收一个CSS选择符为参数。-IE8-支持"><span class="nav-number">8.1.</span> <span class="nav-text">1) querySelector()和querySelectorAll()可通过Document及Element类型调用，接收一个CSS选择符为参数。 // IE8+支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-元素遍历："><span class="nav-number">8.2.</span> <span class="nav-text">2) 元素遍历：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-DOM扩展与HTML5规范"><span class="nav-number">9.</span> <span class="nav-text">9.DOM扩展与HTML5规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-自定义数据属性"><span class="nav-number">9.1.</span> <span class="nav-text">1) 自定义数据属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-插入标记"><span class="nav-number">9.2.</span> <span class="nav-text">2) 插入标记</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-元素大小"><span class="nav-number">10.</span> <span class="nav-text">10.元素大小</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-偏移量：包括元素在屏幕上占用的所有可见的空间，元素的可见大小由其高度、宽度决定，包括内边距、滚动条和边框大小（不包括外边距）"><span class="nav-number">10.1.</span> <span class="nav-text">1) 偏移量：包括元素在屏幕上占用的所有可见的空间，元素的可见大小由其高度、宽度决定，包括内边距、滚动条和边框大小（不包括外边距）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2）客户区大小"><span class="nav-number">10.2.</span> <span class="nav-text">2）客户区大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3）滚动大小"><span class="nav-number">10.3.</span> <span class="nav-text">3）滚动大小</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-判断Node类型："><span class="nav-number">1.</span> <span class="nav-text">1.判断Node类型：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-要了解节点的具体信息可以使用nodeName或nodeValue属性，必须用在ELEMENT-NODE"><span class="nav-number">2.</span> <span class="nav-text">2.要了解节点的具体信息可以使用nodeName或nodeValue属性，必须用在ELEMENT_NODE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-每个节点都有childNodes属性，它实际上是基于DOM结构动态执行查询的结果，类数组。"><span class="nav-number">3.</span> <span class="nav-text">3.每个节点都有childNodes属性，它实际上是基于DOM结构动态执行查询的结果，类数组。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-父节点：parantNode属性"><span class="nav-number">4.</span> <span class="nav-text">4.父节点：parantNode属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-操作节点："><span class="nav-number">5.</span> <span class="nav-text">5.操作节点：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-插入："><span class="nav-number">5.1.</span> <span class="nav-text">1) 插入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-替换："><span class="nav-number">5.2.</span> <span class="nav-text">2) 替换：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-移除："><span class="nav-number">5.3.</span> <span class="nav-text">3) 移除：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Document类型常见作为HTMLDocument实例的document对象"><span class="nav-number">6.</span> <span class="nav-text">6.Document类型常见作为HTMLDocument实例的document对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-文档信息："><span class="nav-number">6.1.</span> <span class="nav-text">1) 文档信息：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-查找元素："><span class="nav-number">6.2.</span> <span class="nav-text">2) 查找元素：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-特殊集合："><span class="nav-number">6.3.</span> <span class="nav-text">3) 特殊集合：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-所有HTML元素都由HTMLElement类型表示，可直接获取元素所有信息"><span class="nav-number">7.</span> <span class="nav-text">7.所有HTML元素都由HTMLElement类型表示，可直接获取元素所有信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-取得特性"><span class="nav-number">7.1.</span> <span class="nav-text">1) 取得特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-创建元素"><span class="nav-number">7.2.</span> <span class="nav-text">2) 创建元素</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-DOM扩展"><span class="nav-number">8.</span> <span class="nav-text">8.DOM扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-querySelector-和querySelectorAll-可通过Document及Element类型调用，接收一个CSS选择符为参数。-IE8-支持"><span class="nav-number">8.1.</span> <span class="nav-text">1) querySelector()和querySelectorAll()可通过Document及Element类型调用，接收一个CSS选择符为参数。 // IE8+支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-元素遍历："><span class="nav-number">8.2.</span> <span class="nav-text">2) 元素遍历：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-DOM扩展与HTML5规范"><span class="nav-number">9.</span> <span class="nav-text">9.DOM扩展与HTML5规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-自定义数据属性"><span class="nav-number">9.1.</span> <span class="nav-text">1) 自定义数据属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-插入标记"><span class="nav-number">9.2.</span> <span class="nav-text">2) 插入标记</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-元素大小"><span class="nav-number">10.</span> <span class="nav-text">10.元素大小</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-偏移量：包括元素在屏幕上占用的所有可见的空间，元素的可见大小由其高度、宽度决定，包括内边距、滚动条和边框大小（不包括外边距）"><span class="nav-number">10.1.</span> <span class="nav-text">1) 偏移量：包括元素在屏幕上占用的所有可见的空间，元素的可见大小由其高度、宽度决定，包括内边距、滚动条和边框大小（不包括外边距）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2）客户区大小"><span class="nav-number">10.2.</span> <span class="nav-text">2）客户区大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3）滚动大小"><span class="nav-number">10.3.</span> <span class="nav-text">3）滚动大小</span></a></li></ol></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">csd</p>
+  <div class="site-description" itemprop="description">记录前端以及node.js知识</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">csd</span>
-
-  
 </div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.7.1
+  </div>
   <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
-  <div class=BbeiAn-info">
-  粤ICP备 -
-  <a href="http://www.beian.miit.gov.cn">18016898号-2</a>
-  </a>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
   </div>
 
-
-
-
-
         
-<div class="busuanzi-count">
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-  
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
-    </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
 
 
 
@@ -624,34 +374,17 @@ var _hmt = _hmt || [];
 
 
 
-        
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
   </div>
 
   
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -668,111 +401,8 @@ var _hmt = _hmt || [];
 
 
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
 
   
 
