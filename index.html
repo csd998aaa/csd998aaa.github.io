@@ -267,6 +267,143 @@ var _hmt = _hmt || [];
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/18/JavaScript检查对象属性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Funbfe's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/18/JavaScript检查对象属性/" itemprop="url">JavaScript检查/遍历对象属性</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-18T09:43:08+08:00">
+                2020-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JavaScript检查-遍历对象属性"><a href="#JavaScript检查-遍历对象属性" class="headerlink" title="JavaScript检查/遍历对象属性"></a>JavaScript检查/遍历对象属性</h1><h2 id="in-与-Object-hasOwnProperty"><a href="#in-与-Object-hasOwnProperty" class="headerlink" title="in 与 Object.hasOwnProperty()"></a>in 与 Object.hasOwnProperty()</h2><p>区别：in操作符会检查属性是否在对象及其原型链中，而Object.hasOwnProperty()，顾名思义，仅仅检查是否在对象属性而不查找其原型链，两者都返回Boolean值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">"csd"</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"name"</span> <span class="keyword">in</span> obj) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"toString"</span> <span class="keyword">in</span> obj) <span class="comment">// true 因为toString在obj原型链上，也就是Object.propotype.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.hasOwnProperty(<span class="string">"name"</span>)) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.hasOwnProperty(<span class="string">"toSting"</span>)) <span class="comment">// false 不检查其原型链</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义age属性 不可枚举, 一样可以检查到该属性</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">"age"</span>, &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    value: <span class="number">22</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'age'</span> <span class="keyword">in</span> obj) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.hasOwnProperty(<span class="string">"age"</span>)) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="for-in"><a href="#for-in" class="headerlink" title="for-in"></a>for-in</h2><p><code>for-in</code>循环可以用来遍历对象的可枚举属性的列表（包括其[[prototype]]）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.getLength = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.length</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">arr.name = <span class="string">"nums"</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(arr,<span class="string">"age"</span>, &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    value: <span class="number">22</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> arr) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(k) <span class="comment">// 输出 0,1,2,name,getLength</span></span><br><span class="line">    <span class="comment">// 没有输出 age 因为该属性不可枚举</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Tips: for-in 尽量不要用在数组上，因为遍历数组的索引为<code>string</code>类型，而且还会遍历数组的可枚举属性。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> arr) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(k) <span class="comment">// 输出 0,1,2,3,4</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> k) <span class="comment">// 输出 5次 string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys()"></a>Object.keys()</h2><p><code>Object.keys()</code>只查找对象直接包含的属性，「不查找原型链以及Symbol属性」。返回一个数组，包含所有可枚举属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">"csd"</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj,<span class="string">"age"</span>,&#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    value: <span class="number">22</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(obj))</span><br></pre></td></tr></table></figure>
+<p>对于遍历数组，和<code>for-in</code>一样，返回含有索引下标的字符串数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(arr)) <span class="comment">// ['0','1','2','3']</span></span><br></pre></td></tr></table></figure>
+<h2 id="Object-getOwnPropertyNames"><a href="#Object-getOwnPropertyNames" class="headerlink" title="Object.getOwnPropertyNames()"></a>Object.getOwnPropertyNames()</h2><p>Object.getOwnPropertyNames() 返回一个数组，包含了对象自有属性，「不查找原型链以及Symbol属性」。无论对象是否可枚举，都会被遍历出来。</p>
+<blockquote>
+<p>这里与Object.keys()区分开：<code>Object.keys()</code>只遍历可枚举。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">"csd"</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj,<span class="string">"age"</span>,&#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>, <span class="comment">// age 不可枚举</span></span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    value: <span class="number">22</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(obj)) <span class="comment">// [ 'name', 'age' ]</span></span><br></pre></td></tr></table></figure>
+<p>done!</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/07/块格式上下文/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1480,7 +1617,7 @@ var _hmt = _hmt || [];
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

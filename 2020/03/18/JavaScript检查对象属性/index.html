@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="函数对象与其他对象的区别JavaScript中的函数和其他对象最大的区别在于它们有一个特殊的内部属性[[Call]]，包含了该函数的执行指令。typeof操作符会在对象内查找这个内部属性，若找到则返回”function” call() apply() bind() 三者的区别第一个参数都是传给新函数this的值，call()和apply()的区别仅传人参数形式不同，call()第二个参数起接收参数">
+<meta name="description" content="JavaScript检查/遍历对象属性in 与 Object.hasOwnProperty()区别：in操作符会检查属性是否在对象及其原型链中，而Object.hasOwnProperty()，顾名思义，仅仅检查是否在对象属性而不查找其原型链，两者都返回Boolean值。 123456789101112131415161718var obj = &amp;#123;    name: &quot;csd&quot;,&amp;#12">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript对象与函数对象">
-<meta property="og:url" content="http://yoursite.com/2018/09/19/JavaScript对象与函数对象/index.html">
+<meta property="og:title" content="JavaScript检查&#x2F;遍历对象属性">
+<meta property="og:url" content="http://yoursite.com/2020/03/18/JavaScript检查对象属性/index.html">
 <meta property="og:site_name" content="Funbfe&#39;s Blog">
-<meta property="og:description" content="函数对象与其他对象的区别JavaScript中的函数和其他对象最大的区别在于它们有一个特殊的内部属性[[Call]]，包含了该函数的执行指令。typeof操作符会在对象内查找这个内部属性，若找到则返回”function” call() apply() bind() 三者的区别第一个参数都是传给新函数this的值，call()和apply()的区别仅传人参数形式不同，call()第二个参数起接收参数">
+<meta property="og:description" content="JavaScript检查/遍历对象属性in 与 Object.hasOwnProperty()区别：in操作符会检查属性是否在对象及其原型链中，而Object.hasOwnProperty()，顾名思义，仅仅检查是否在对象属性而不查找其原型链，两者都返回Boolean值。 123456789101112131415161718var obj = &amp;#123;    name: &quot;csd&quot;,&amp;#12">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/articleImgs/prototype实例原型.png">
-<meta property="og:updated_time" content="2020-03-08T06:59:19.519Z">
+<meta property="og:updated_time" content="2020-03-18T01:45:20.722Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript对象与函数对象">
-<meta name="twitter:description" content="函数对象与其他对象的区别JavaScript中的函数和其他对象最大的区别在于它们有一个特殊的内部属性[[Call]]，包含了该函数的执行指令。typeof操作符会在对象内查找这个内部属性，若找到则返回”function” call() apply() bind() 三者的区别第一个参数都是传给新函数this的值，call()和apply()的区别仅传人参数形式不同，call()第二个参数起接收参数">
-<meta name="twitter:image" content="http://yoursite.com/articleImgs/prototype实例原型.png">
+<meta name="twitter:title" content="JavaScript检查&#x2F;遍历对象属性">
+<meta name="twitter:description" content="JavaScript检查/遍历对象属性in 与 Object.hasOwnProperty()区别：in操作符会检查属性是否在对象及其原型链中，而Object.hasOwnProperty()，顾名思义，仅仅检查是否在对象属性而不查找其原型链，两者都返回Boolean值。 123456789101112131415161718var obj = &amp;#123;    name: &quot;csd&quot;,&amp;#12">
 
 
 
@@ -136,13 +134,13 @@ var _hmt = _hmt || [];
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/19/JavaScript对象与函数对象/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/03/18/JavaScript检查对象属性/"/>
 
 
 
 
 
-  <title>JavaScript对象与函数对象 | Funbfe's Blog</title>
+  <title>JavaScript检查/遍历对象属性 | Funbfe's Blog</title>
   
 
 
@@ -269,7 +267,7 @@ var _hmt = _hmt || [];
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/19/JavaScript对象与函数对象/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/18/JavaScript检查对象属性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="csd">
@@ -286,7 +284,7 @@ var _hmt = _hmt || [];
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript对象与函数对象</h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript检查/遍历对象属性</h1>
         
 
         <div class="post-meta">
@@ -298,8 +296,8 @@ var _hmt = _hmt || [];
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-19T11:03:08+08:00">
-                2018-09-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-18T09:43:08+08:00">
+                2020-03-18
               </time>
             
 
@@ -341,17 +339,24 @@ var _hmt = _hmt || [];
       
 
       
-        <h2 id="函数对象与其他对象的区别"><a href="#函数对象与其他对象的区别" class="headerlink" title="函数对象与其他对象的区别"></a>函数对象与其他对象的区别</h2><p>JavaScript中的函数和其他对象最大的区别在于它们有一个特殊的内部属性[[Call]]，包含了该函数的执行指令。typeof操作符会在对象内查找这个内部属性，若找到则返回”function”</p>
-<h2 id="call-apply-bind-三者的区别"><a href="#call-apply-bind-三者的区别" class="headerlink" title="call() apply() bind() 三者的区别"></a>call() apply() bind() 三者的区别</h2><p>第一个参数都是传给新函数this的值，call()和apply()的区别仅传人参数形式不同，call()第二个参数起接收参数列表，而apply()第二个参数接收数组或类数组。而bind()跟call()一样，不同的是第二个参数起会被永久设置在新函数中的形参。</p>
-<h2 id="JavaScript对象定义属性"><a href="#JavaScript对象定义属性" class="headerlink" title="JavaScript对象定义属性"></a>JavaScript对象定义属性</h2><p>当一个属性第一次被添加对象时，JavaScript在对象上调用一个名为[[Put]]的内部方法。[[Put]]方法会在对象上创建一个新节点来保存属性，这个操作不仅指定了初始的值，也定义了属性上的一些特征。<br>当一个已有属性被赋予新值时，调用的是[[Set]]方法。<br>delete操作符会对单个对象属性调用名为[[Delete]]内部方法。delete仅对自有属性有效。</p>
-<h2 id="查找对象属性"><a href="#查找对象属性" class="headerlink" title="查找对象属性"></a>查找对象属性</h2><p>in操作符会检查自有属性和原型属性<br>hasOwnProperty()只检查自有属性</p>
-<h2 id="属性枚举"><a href="#属性枚举" class="headerlink" title="属性枚举"></a>属性枚举</h2><p>for-in循环返回的和Object.keys()返回的可枚举属性的区别：for-in循环遍历自有属性和原型属性，而Object.keys()只返回自有属性名字的数组。</p>
-<h2 id="属性通用特征"><a href="#属性通用特征" class="headerlink" title="属性通用特征"></a>属性通用特征</h2><p>数据和访问器属性都具有[[Enumerable]]和[[Configurable]]（布尔值）。如果想改变属性特征，可以使用Object.defineProperty(obj,proName,descript)，当调用这个方法时，应该要指定descript所有值，否则布尔类型的值都是false。<br>定义多重属性可以用Object.defineProperties(obj,proObj)<br>获取属性特征可以用Object.getOwnPropertyDescriptor(obj,proName)</p>
-<h2 id="数据属性特征"><a href="#数据属性特征" class="headerlink" title="数据属性特征"></a>数据属性特征</h2><p>[[Value]]所有属性的值都保存在这。<br>[[Writable]]是一个布尔值，指示该属性是否可以写入。</p>
-<h2 id="访问器属性特征"><a href="#访问器属性特征" class="headerlink" title="访问器属性特征"></a>访问器属性特征</h2><p>[[Get]]读取属性值 [[Set]]设置属性值；内涵getter和setter函数。</p>
-<h2 id="构造函数与原型对象"><a href="#构造函数与原型对象" class="headerlink" title="构造函数与原型对象"></a>构造函数与原型对象</h2><p>每个对象在创建时都自动拥有一个构造函数属性，其中包含了一个指向其构造函数的引用。那些通过字面量或者Object构造函数创建的泛用对象，其构造函数属性指向Object，而通过自定义构造函数创建的对象则指向创建它的构造函数。<br>当调用构造函数时，new会自动创建this对象，且其类型就是构造函数的类型。也可以在构造函数显式调用return。如果返回值是一个对象则返回该对象，否则返回新创建的对象实例。</p>
-<h3 id="Prototype-属性"><a href="#Prototype-属性" class="headerlink" title="[[Prototype]]属性"></a>[[Prototype]]属性</h3><p>一个对象实例通过内部属性[[Prototype]]跟踪其原型对象。该属性是一个指向该实例使用的原型对象的人指针。当用new创建一个新的对象时，构造函数的原型对象会被赋给该对象[[Prototype]]属性。<br><img src="/articleImgs/prototype实例原型.png" alt="avatar"><br>当读取一个对象属性时，JavaScript引擎首先在该对象上的自有属性中查找属性名字。如果找到则返回。如果自有属性中不包含改名字，则会搜索[[Prototype]]中的对象，找到则返回，直至找到末端Object.prototype。<br>无法给一个对象的原型属性赋值。</p>
-<h2 id="对象继承"><a href="#对象继承" class="headerlink" title="对象继承"></a>对象继承</h2><p>对象字面量会隐式指定Object.prototype为其[[Prototype]]，当然也可以使用Object.create()方法显式指定。第一个参数是需要被设置新对象的[[Prototype]]，第二个参数是属性描述对象。也可以使用它来创建一个没有原型链的对象。<br><code>var nakedObj = Object.create(null);</code></p>
+        <h1 id="JavaScript检查-遍历对象属性"><a href="#JavaScript检查-遍历对象属性" class="headerlink" title="JavaScript检查/遍历对象属性"></a>JavaScript检查/遍历对象属性</h1><h2 id="in-与-Object-hasOwnProperty"><a href="#in-与-Object-hasOwnProperty" class="headerlink" title="in 与 Object.hasOwnProperty()"></a>in 与 Object.hasOwnProperty()</h2><p>区别：in操作符会检查属性是否在对象及其原型链中，而Object.hasOwnProperty()，顾名思义，仅仅检查是否在对象属性而不查找其原型链，两者都返回Boolean值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">"csd"</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"name"</span> <span class="keyword">in</span> obj) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"toString"</span> <span class="keyword">in</span> obj) <span class="comment">// true 因为toString在obj原型链上，也就是Object.propotype.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj.hasOwnProperty(<span class="string">"name"</span>)) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.hasOwnProperty(<span class="string">"toSting"</span>)) <span class="comment">// false 不检查其原型链</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义age属性 不可枚举, 一样可以检查到该属性</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">"age"</span>, &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    value: <span class="number">22</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'age'</span> <span class="keyword">in</span> obj) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.hasOwnProperty(<span class="string">"age"</span>)) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="for-in"><a href="#for-in" class="headerlink" title="for-in"></a>for-in</h2><p><code>for-in</code>循环可以用来遍历对象的可枚举属性的列表（包括其[[prototype]]）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.getLength = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.length</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">arr.name = <span class="string">"nums"</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(arr,<span class="string">"age"</span>, &#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    value: <span class="number">22</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> arr) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(k) <span class="comment">// 输出 0,1,2,name,getLength</span></span><br><span class="line">    <span class="comment">// 没有输出 age 因为该属性不可枚举</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Tips: for-in 尽量不要用在数组上，因为遍历数组的索引为<code>string</code>类型，而且还会遍历数组的可枚举属性。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> k <span class="keyword">in</span> arr) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(k) <span class="comment">// 输出 0,1,2,3,4</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> k) <span class="comment">// 输出 5次 string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys()"></a>Object.keys()</h2><p><code>Object.keys()</code>只查找对象直接包含的属性，「不查找原型链以及Symbol属性」。返回一个数组，包含所有可枚举属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">"csd"</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj,<span class="string">"age"</span>,&#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>,</span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    value: <span class="number">22</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(obj))</span><br></pre></td></tr></table></figure>
+<p>对于遍历数组，和<code>for-in</code>一样，返回含有索引下标的字符串数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(arr)) <span class="comment">// ['0','1','2','3']</span></span><br></pre></td></tr></table></figure>
+<h2 id="Object-getOwnPropertyNames"><a href="#Object-getOwnPropertyNames" class="headerlink" title="Object.getOwnPropertyNames()"></a>Object.getOwnPropertyNames()</h2><p>Object.getOwnPropertyNames() 返回一个数组，包含了对象自有属性，「不查找原型链以及Symbol属性」。无论对象是否可枚举，都会被遍历出来。</p>
+<blockquote>
+<p>这里与Object.keys()区分开：<code>Object.keys()</code>只遍历可枚举。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">"csd"</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj,<span class="string">"age"</span>,&#123;</span><br><span class="line">    enumerable: <span class="literal">false</span>, <span class="comment">// age 不可枚举</span></span><br><span class="line">    configurable: <span class="literal">true</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    value: <span class="number">22</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(obj)) <span class="comment">// [ 'name', 'age' ]</span></span><br></pre></td></tr></table></figure>
+<p>done!</p>
 
       
     </div>
@@ -406,8 +411,8 @@ var _hmt = _hmt || [];
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/14/理解变量声明提升/" rel="next" title="理解变量声明提升以及作用域">
-                <i class="fa fa-chevron-left"></i> 理解变量声明提升以及作用域
+              <a href="/2020/03/07/块格式上下文/" rel="next" title="块格式上下文（BFC）是怎么回事？">
+                <i class="fa fa-chevron-left"></i> 块格式上下文（BFC）是怎么回事？
               </a>
             
           </div>
@@ -415,10 +420,6 @@ var _hmt = _hmt || [];
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/02/26/MySQL安装及配置-Windows/" rel="prev" title="MySQL安装及配置(Windows)">
-                MySQL安装及配置(Windows) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -563,7 +564,7 @@ var _hmt = _hmt || [];
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数对象与其他对象的区别"><span class="nav-number">1.</span> <span class="nav-text">函数对象与其他对象的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-apply-bind-三者的区别"><span class="nav-number">2.</span> <span class="nav-text">call() apply() bind() 三者的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript对象定义属性"><span class="nav-number">3.</span> <span class="nav-text">JavaScript对象定义属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找对象属性"><span class="nav-number">4.</span> <span class="nav-text">查找对象属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性枚举"><span class="nav-number">5.</span> <span class="nav-text">属性枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性通用特征"><span class="nav-number">6.</span> <span class="nav-text">属性通用特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据属性特征"><span class="nav-number">7.</span> <span class="nav-text">数据属性特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问器属性特征"><span class="nav-number">8.</span> <span class="nav-text">访问器属性特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数与原型对象"><span class="nav-number">9.</span> <span class="nav-text">构造函数与原型对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Prototype-属性"><span class="nav-number">9.1.</span> <span class="nav-text">[[Prototype]]属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象继承"><span class="nav-number">10.</span> <span class="nav-text">对象继承</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript检查-遍历对象属性"><span class="nav-number">1.</span> <span class="nav-text">JavaScript检查/遍历对象属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#in-与-Object-hasOwnProperty"><span class="nav-number">1.1.</span> <span class="nav-text">in 与 Object.hasOwnProperty()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-in"><span class="nav-number">1.2.</span> <span class="nav-text">for-in</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-keys"><span class="nav-number">1.3.</span> <span class="nav-text">Object.keys()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-getOwnPropertyNames"><span class="nav-number">1.4.</span> <span class="nav-text">Object.getOwnPropertyNames()</span></a></li></ol></li></ol></div>
             
 
           </div>
