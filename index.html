@@ -28,6 +28,7 @@
 <meta property="og:description" content="记录前端以及node.js知识">
 <meta property="og:locale">
 <meta property="article:author" content="csd">
+<meta property="article:tag" content="funbfe 博客">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://example.com/">
@@ -83,7 +84,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -112,12 +113,17 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -147,7 +153,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/19/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/DOM%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -161,7 +167,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/04/19/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/2020/02/22/DOM%E6%93%8D%E4%BD%9C/" class="post-title-link" itemprop="url">DOM的基本操作</a>
         </h2>
 
         <div class="post-meta">
@@ -169,10 +175,17 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="Created: 2022-04-19 01:27:30" itemprop="dateCreated datePublished" datetime="2022-04-19T01:27:30+08:00">2022-04-19</time>
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-09-06 12:10:16" itemprop="dateModified" datetime="2018-09-06T12:10:16+08:00">2018-09-06</time>
+              </span>
 
           
 
@@ -185,19 +198,771 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+          <h1 id="1-判断Node类型："><a href="#1-判断Node类型：" class="headerlink" title="1.判断Node类型："></a>1.判断Node类型：</h1><p>someNode.nodeType &#x3D;&#x3D; 1 &#x2F;&#x2F; <em>ELEMENT_NODE</em><br>someNode.nodeType &#x3D;&#x3D; 2 &#x2F;&#x2F; <em>ATTRIBUTE_NODE</em><br>someNode.nodeType &#x3D;&#x3D; 3 &#x2F;&#x2F; <em>TEXT_NODE</em><br>someNode.nodeType &#x3D;&#x3D; 9 &#x2F;&#x2F; <em>DOCUMENT_NODE</em></p>
+<h1 id="2-要了解节点的具体信息可以使用nodeName或nodeValue属性，必须用在ELEMENT-NODE"><a href="#2-要了解节点的具体信息可以使用nodeName或nodeValue属性，必须用在ELEMENT-NODE" class="headerlink" title="2.要了解节点的具体信息可以使用nodeName或nodeValue属性，必须用在ELEMENT_NODE"></a>2.要了解节点的具体信息可以使用nodeName或nodeValue属性，必须用在ELEMENT_NODE</h1><p>例： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(someNode.<span class="property">nodeType</span> === <span class="number">1</span>) &#123;</span><br><span class="line">    value = someNode.<span class="property">nodeName</span>; <span class="comment">// nodeName 的值是元素的标签名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="3-每个节点都有childNodes属性，它实际上是基于DOM结构动态执行查询的结果，类数组。"><a href="#3-每个节点都有childNodes属性，它实际上是基于DOM结构动态执行查询的结果，类数组。" class="headerlink" title="3.每个节点都有childNodes属性，它实际上是基于DOM结构动态执行查询的结果，类数组。"></a>3.每个节点都有childNodes属性，它实际上是基于DOM结构动态执行查询的结果，类数组。</h1><p>例： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> firstChild = someNode.<span class="property">childNodes</span>[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> secondChild = someNode.<span class="property">childNodes</span>.<span class="title function_">item</span>(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>可以使用Array.prototype.slice转换为数组：<br>    <code>var arrayOfNodes = Array.prototype.slice.call(someNode.ChildNodes,0); // 在IE8及之前IE版本无效，原因是IE早期将NodeList实现为COM对象</code><br>    解决方案：（兼容性）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">convertToArray</span>(<span class="params">nodes</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> arr = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        arr = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">slice</span>.<span class="title function_">call</span>(nodes,<span class="number">0</span>); <span class="comment">// 针对非IE浏览器</span></span><br><span class="line">    &#125;<span class="keyword">catch</span>(e) &#123;</span><br><span class="line">        arr = <span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>,len = nodes.<span class="property">length</span>; i&lt; len; i++)  &#123;</span><br><span class="line">            arr.<span class="title function_">push</span>(nodes[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="4-父节点：parantNode属性"><a href="#4-父节点：parantNode属性" class="headerlink" title="4.父节点：parantNode属性"></a>4.父节点：parantNode属性</h1><pre><code>第一个子节点：firstChild 最后一个子节点：lastChild 
+同胞上一节点：previousSibling 同胞下一节点：nextSibling
+所有节点的最后一个属性是ownerDocument，该属性指向表示整个文档的文档节点。
+</code></pre>
+<h1 id="5-操作节点："><a href="#5-操作节点：" class="headerlink" title="5.操作节点："></a>5.操作节点：</h1><h2 id="1-插入："><a href="#1-插入：" class="headerlink" title="1) 插入："></a>1) 插入：</h2><p><code>var returnedNode = someNode.appendChild(newNode) // 用于childNodes列表末尾中插入节点，someNode为父节点，返回一个新节点</code><br>如果在调用appendChild()时传入父节点的第一个子节点，那么该节点就会成为父节点的最后一个子节点。<br>insertBefore(要插入的节点，参照节点)  &#x2F;&#x2F; <em>插入一个新节点在参照节点之前</em><br>例： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">someNode.<span class="title function_">insertBefore</span>(newNode,<span class="literal">null</span>); <span class="comment">// 插入成为最后一个子节点</span></span><br><span class="line">someNode.<span class="title function_">insertBefore</span>(newNode,someNode.<span class="property">firstChild</span>); <span class="comment">// 插入成为第一个子节点</span></span><br></pre></td></tr></table></figure>
+<p>appendChild()和insertBefore()只插入节点，并不会移除节点。</p>
+<h2 id="2-替换："><a href="#2-替换：" class="headerlink" title="2) 替换："></a>2) 替换：</h2><p>replaceChild(要插入的节点，要替换的节点) &#x2F;&#x2F; <em>要替换的节点将由这个方法返回并从文档树被移除，同时由要插入的节点占据其位置</em><br>例： <code>var returnedNode = someNode.replaceChild(newNode,someNode.firstChild); // 新节点替换第一个子节点</code></p>
+<h2 id="3-移除："><a href="#3-移除：" class="headerlink" title="3) 移除："></a>3) 移除：</h2><p>removeChild(rmNode); &#x2F;&#x2F; 接收一个要移除的节点为参数，被移除的节点为返回值<br>例： <code>var rmNode = someNode.removeChild(someNode.firstChild); // 移除第一个子节点</code></p>
+<h1 id="6-Document类型常见作为HTMLDocument实例的document对象"><a href="#6-Document类型常见作为HTMLDocument实例的document对象" class="headerlink" title="6.Document类型常见作为HTMLDocument实例的document对象"></a>6.Document类型常见作为HTMLDocument实例的document对象</h1><h2 id="1-文档信息："><a href="#1-文档信息：" class="headerlink" title="1) 文档信息："></a>1) 文档信息：</h2><p>document.title; &#x2F;&#x2F; <em>取得页面标题，赋值也可以修改标题</em><br>document.url; &#x2F;&#x2F; <em>取得完整的URL</em><br>document.domain; &#x2F;&#x2F; <em>取得主机域名</em><br>document.referrer; &#x2F;&#x2F; <em>取得来源页面的URL</em></p>
+<h2 id="2-查找元素："><a href="#2-查找元素：" class="headerlink" title="2) 查找元素："></a>2) 查找元素：</h2><p>document.getElementById(‘id’); &#x2F;&#x2F; <em>等等</em></p>
+<h2 id="3-特殊集合："><a href="#3-特殊集合：" class="headerlink" title="3) 特殊集合："></a>3) 特殊集合：</h2><p>document.anchors &#x2F;&#x2F; <em>包含文档中所有带name特性的<a>元素</em><br>document.forms; &#x2F;&#x2F; <em>包含文档中form元素</em><br>document.images; &#x2F;&#x2F; <em>images元素</em><br>document.links; &#x2F;&#x2F; <em>返回带有href特性的<a>元素</em></p>
+<h1 id="7-所有HTML元素都由HTMLElement类型表示，可直接获取元素所有信息"><a href="#7-所有HTML元素都由HTMLElement类型表示，可直接获取元素所有信息" class="headerlink" title="7.所有HTML元素都由HTMLElement类型表示，可直接获取元素所有信息"></a>7.所有HTML元素都由HTMLElement类型表示，可直接获取元素所有信息</h1><h2 id="1-取得特性"><a href="#1-取得特性" class="headerlink" title="1) 取得特性"></a>1) 取得特性</h2><p>例： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div =  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;box&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="title function_">getAttribute</span>(<span class="string">&#x27;id&#x27;</span>)); <span class="comment">// 取得id</span></span><br><span class="line">div.<span class="title function_">setAttribute</span>(<span class="string">&#x27;class&#x27;</span>,<span class="string">&#x27;myBox&#x27;</span>); <span class="comment">// 设置class为myBox</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-创建元素"><a href="#2-创建元素" class="headerlink" title="2) 创建元素"></a>2) 创建元素</h2><p>例： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>); <span class="comment">// 创建div元素</span></span><br><span class="line">div.<span class="property">id</span> = <span class="string">&#x27;box&#x27;</span>; <span class="comment">// 设置id</span></span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(div); <span class="comment">// 插入到&lt;/body&gt;之前</span></span><br></pre></td></tr></table></figure>
+<h1 id="8-DOM扩展"><a href="#8-DOM扩展" class="headerlink" title="8.DOM扩展"></a>8.DOM扩展</h1><h2 id="1-querySelector-和querySelectorAll-可通过Document及Element类型调用，接收一个CSS选择符为参数。-x2F-x2F-IE8-支持"><a href="#1-querySelector-和querySelectorAll-可通过Document及Element类型调用，接收一个CSS选择符为参数。-x2F-x2F-IE8-支持" class="headerlink" title="1) querySelector()和querySelectorAll()可通过Document及Element类型调用，接收一个CSS选择符为参数。 &#x2F;&#x2F; IE8+支持"></a>1) querySelector()和querySelectorAll()可通过Document及Element类型调用，接收一个CSS选择符为参数。 &#x2F;&#x2F; <em>IE8+支持</em></h2><p>前者返回第一个元素，后者返回NodeList的实例（所有匹配到的元素）</p>
+<h2 id="2-元素遍历："><a href="#2-元素遍历：" class="headerlink" title="2) 元素遍历："></a>2) 元素遍历：</h2><p>注：对于IE9及之前版本不会返回文本节点，而其他所有浏览器都会返回文本节点，导致在使用childNodes和firstChild等属性的行为不一致。<br>规范为DOM元素添加了以下5个属性：<br>childElementCount：返回子元素（不包括文本节点和注释）的个数。<br>firstElementChild：指向第一个子元素，也就是firstChild的元素版。<br>lastElementChild：指向最后一个子元素，同理。<br>previousElementSibling：指向前一个同辈元素，同理。<br>nextElementSibling：指向后一个同辈元素，同理。</p>
+<h1 id="9-DOM扩展与HTML5规范"><a href="#9-DOM扩展与HTML5规范" class="headerlink" title="9.DOM扩展与HTML5规范"></a>9.DOM扩展与HTML5规范</h1><h2 id="1-自定义数据属性"><a href="#1-自定义数据属性" class="headerlink" title="1) 自定义数据属性"></a>1) 自定义数据属性</h2><p>HTML5规定可以为元素添加非标准的属性，要添加前缀data-，目的是为元素提供与渲染无关的信息，或者提供语义信息。</p>
+<h2 id="2-插入标记"><a href="#2-插入标记" class="headerlink" title="2) 插入标记"></a>2) 插入标记</h2><p>innerHTML、innerText</p>
+<h1 id="10-元素大小"><a href="#10-元素大小" class="headerlink" title="10.元素大小"></a>10.元素大小</h1><h2 id="1-偏移量：包括元素在屏幕上占用的所有可见的空间，元素的可见大小由其高度、宽度决定，包括内边距、滚动条和边框大小（不包括外边距）"><a href="#1-偏移量：包括元素在屏幕上占用的所有可见的空间，元素的可见大小由其高度、宽度决定，包括内边距、滚动条和边框大小（不包括外边距）" class="headerlink" title="1) 偏移量：包括元素在屏幕上占用的所有可见的空间，元素的可见大小由其高度、宽度决定，包括内边距、滚动条和边框大小（不包括外边距）"></a>1) 偏移量：包括元素在屏幕上占用的所有可见的空间，元素的可见大小由其高度、宽度决定，包括内边距、滚动条和边框大小（不包括外边距）</h2><p>通过以下4个属性可以取得元素的偏移量：<br>offsetHeight:元素在垂直方向上占用的空间大小，以像素计。包括元素的高度、（可见的）水平滚动条的高度、上下边框高度。<br>offsetWidth：元素在水平方向上占用的空间大小，以像素计。包括元素的宽度、（可见的）垂直滚动条的宽度、左右边框的宽度。<br>offsetLeft：元素的左外边框至包含元素的左内边框直接的像素距离。<br>offsetTop：元素的上外边框至包含与元素的上内边框之间的像素距离。<br>例：var offsetLeftEle &#x3D;element.offsetLeft; </p>
+<h2 id="2）客户区大小"><a href="#2）客户区大小" class="headerlink" title="2）客户区大小"></a>2）客户区大小</h2><p>有关属性有两个：clientWidth和clientHeight<br>clientWidth属性是元素内容区宽度加上左右内边距宽度。<br>clientHeight属性是元素内容区高度加上上下内边距高度。<br>确定浏览器视口大小解决方案：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">getViewport</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="variable language_">document</span>.<span class="property">compatMode</span> == <span class="string">&#x27;BackCompat&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// 首先检查compatMode属性以确定浏览器是否允许在混杂模式，而Safari 3.1之前的版本不支持这个属性则执行else</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">width</span>:<span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">clientWidth</span>,</span><br><span class="line">            <span class="attr">height</span>:<span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">clientHeight</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Chrome、Opera和Firefox大多数情况下在标准模式下，因此执行以下语句</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">width</span>:<span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">clientWidth</span>,</span><br><span class="line">            <span class="attr">height</span>:<span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">clientHeight</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3）滚动大小"><a href="#3）滚动大小" class="headerlink" title="3）滚动大小"></a>3）滚动大小</h2><p>四个与滚动大小相关的属性：<br>scrollHeight：在没有滚动条的情况下，元素内容的总高度。<br>scrollWidth：在没有滚动条的情况下，元素内容的总宽度。<br>scrollLeft：被隐藏在内容区域左侧的像素数。<br>scrollTop：被隐藏在内容区域上方的像素数。<br>scrollHeight和scrollWidth属性：主要用来确定元素内容的实际大小。<br>&#x2F;&#x2F; <em>注：IE6之前版本运行在混杂模式下时是<body>元素，因此带有垂直滚动条的页面总高度就是</em> <strong>document.documentElement.scrollHeight。</strong><br>scrollLeft和scrollTop属性：通过设置这其中属性可以改变元素的滚动位置。</p>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+      
+    </div>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/JavaScript%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/">
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/22/JavaScript%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">JavaScript对象与函数对象</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-09-19 16:03:54" itemprop="dateModified" datetime="2018-09-19T16:03:54+08:00">2018-09-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="函数对象与其他对象的区别"><a href="#函数对象与其他对象的区别" class="headerlink" title="函数对象与其他对象的区别"></a>函数对象与其他对象的区别</h2><p>JavaScript中的函数和其他对象最大的区别在于它们有一个特殊的内部属性[[Call]]，包含了该函数的执行指令。typeof操作符会在对象内查找这个内部属性，若找到则返回”function”</p>
+<h2 id="call-apply-bind-三者的区别"><a href="#call-apply-bind-三者的区别" class="headerlink" title="call() apply() bind() 三者的区别"></a>call() apply() bind() 三者的区别</h2><p>第一个参数都是传给新函数this的值，call()和apply()的区别仅传人参数形式不同，call()第二个参数起接收参数列表，而apply()第二个参数接收数组或类数组。而bind()跟call()一样，不同的是第二个参数起会被永久设置在新函数中的形参。</p>
+<h2 id="JavaScript对象定义属性"><a href="#JavaScript对象定义属性" class="headerlink" title="JavaScript对象定义属性"></a>JavaScript对象定义属性</h2><p>当一个属性第一次被添加对象时，JavaScript在对象上调用一个名为[[Put]]的内部方法。[[Put]]方法会在对象上创建一个新节点来保存属性，这个操作不仅指定了初始的值，也定义了属性上的一些特征。<br>当一个已有属性被赋予新值时，调用的是[[Set]]方法。<br>delete操作符会对单个对象属性调用名为[[Delete]]内部方法。delete仅对自有属性有效。</p>
+<h2 id="查找对象属性"><a href="#查找对象属性" class="headerlink" title="查找对象属性"></a>查找对象属性</h2><p>in操作符会检查自有属性和原型属性<br>hasOwnProperty()只检查自有属性</p>
+<h2 id="属性枚举"><a href="#属性枚举" class="headerlink" title="属性枚举"></a>属性枚举</h2><p>for-in循环返回的和Object.keys()返回的可枚举属性的区别：for-in循环遍历自有属性和原型属性，而Object.keys()只返回自有属性名字的数组。</p>
+<h2 id="属性通用特征"><a href="#属性通用特征" class="headerlink" title="属性通用特征"></a>属性通用特征</h2><p>数据和访问器属性都具有[[Enumerable]]和[[Configurable]]（布尔值）。如果想改变属性特征，可以使用Object.defineProperty(obj,proName,descript)，当调用这个方法时，应该要指定descript所有值，否则布尔类型的值都是false。<br>定义多重属性可以用Object.defineProperties(obj,proObj)<br>获取属性特征可以用Object.getOwnPropertyDescriptor(obj,proName)</p>
+<h2 id="数据属性特征"><a href="#数据属性特征" class="headerlink" title="数据属性特征"></a>数据属性特征</h2><p>[[Value]]所有属性的值都保存在这。<br>[[Writable]]是一个布尔值，指示该属性是否可以写入。</p>
+<h2 id="访问器属性特征"><a href="#访问器属性特征" class="headerlink" title="访问器属性特征"></a>访问器属性特征</h2><p>[[Get]]读取属性值 [[Set]]设置属性值；内涵getter和setter函数。</p>
+<h2 id="构造函数与原型对象"><a href="#构造函数与原型对象" class="headerlink" title="构造函数与原型对象"></a>构造函数与原型对象</h2><p>每个对象在创建时都自动拥有一个构造函数属性，其中包含了一个指向其构造函数的引用。那些通过字面量或者Object构造函数创建的泛用对象，其构造函数属性指向Object，而通过自定义构造函数创建的对象则指向创建它的构造函数。<br>当调用构造函数时，new会自动创建this对象，且其类型就是构造函数的类型。也可以在构造函数显式调用return。如果返回值是一个对象则返回该对象，否则返回新创建的对象实例。</p>
+<h3 id="Prototype-属性"><a href="#Prototype-属性" class="headerlink" title="[[Prototype]]属性"></a>[[Prototype]]属性</h3><p>一个对象实例通过内部属性[[Prototype]]跟踪其原型对象。该属性是一个指向该实例使用的原型对象的人指针。当用new创建一个新的对象时，构造函数的原型对象会被赋给该对象[[Prototype]]属性。<br><img src="/articleImgs/prototype%E5%AE%9E%E4%BE%8B%E5%8E%9F%E5%9E%8B.png" alt="avatar"><br>当读取一个对象属性时，JavaScript引擎首先在该对象上的自有属性中查找属性名字。如果找到则返回。如果自有属性中不包含改名字，则会搜索[[Prototype]]中的对象，找到则返回，直至找到末端Object.prototype。<br>无法给一个对象的原型属性赋值。</p>
+<h2 id="对象继承"><a href="#对象继承" class="headerlink" title="对象继承"></a>对象继承</h2><p>对象字面量会隐式指定Object.prototype为其[[Prototype]]，当然也可以使用Object.create()方法显式指定。第一个参数是需要被设置新对象的[[Prototype]]，第二个参数是属性描述对象。也可以使用它来创建一个没有原型链的对象。<br><code>var nakedObj = Object.create(null);</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/22/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-09-04 22:56:40" itemprop="dateModified" datetime="2018-09-04T22:56:40+08:00">2018-09-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Hello csdFe</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85Nginx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/22/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85Nginx/" class="post-title-link" itemprop="url">Linux (centOS) 下安装 Nginx</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-19 01:19:16" itemprop="dateModified" datetime="2022-04-19T01:19:16+08:00">2022-04-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>根据官网安装介绍，本文使用 yum 进行安装<br>先安装 先决条件：<br><code>sudo yum install yum-utils</code></p>
+<p>设置 yum 存储库，创建 <code>/etc/yum.repos.d/nginx.repo</code> ，然后使用以下内容：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[nginx-stable]</span><br><span class="line"><span class="attribute">name</span> = nginx stable repo</span><br><span class="line">baseurl =</span><br><span class="line">http：//nginx.org/packages/centos/<span class="variable">$releasever</span>/<span class="variable">$basearch</span>/gpgcheck = <span class="number">1</span></span><br><span class="line">enabled = <span class="number">1</span></span><br><span class="line">gpgkey = https://nginx.org/keys/nginx_signing。 key</span><br><span class="line"></span><br><span class="line">[nginx-mainline]</span><br><span class="line">name = nginx mainline repo</span><br><span class="line">baseurl =</span><br><span class="line">http：//nginx.org/packages/mainline/centos/<span class="variable">$releasever</span>/<span class="variable">$basearch</span>/gpgcheck = <span class="number">1</span></span><br><span class="line">enabled = <span class="number">0</span></span><br><span class="line">gpgkey = https://nginx.org/keys /nginx_signing.key</span><br></pre></td></tr></table></figure>
+
+<p>然后安装：<br><code>sudo yum install nginx</code></p>
+<h1 id="过程中选择-Y-回车就完事了"><a href="#过程中选择-Y-回车就完事了" class="headerlink" title="过程中选择 Y 回车就完事了"></a>过程中选择 Y 回车就完事了</h1><p>配置 &amp; 启动 Nignx</p>
+<h1 id="先找到-Nginx-配置文件-nginx-conf"><a href="#先找到-Nginx-配置文件-nginx-conf" class="headerlink" title="先找到 Nginx 配置文件 nginx.conf"></a>先找到 Nginx 配置文件 nginx.conf</h1><p><code>find /|grep nginx.conf</code></p>
+<h1 id="我找到的目录在-etc-nginx-nginx-conf"><a href="#我找到的目录在-etc-nginx-nginx-conf" class="headerlink" title="我找到的目录在 /etc/nginx/nginx.conf"></a>我找到的目录在 <code>/etc/nginx/nginx.conf</code></h1><p>然后 <code>vim /etc/nginx/nginx.conf</code></p>
+<h1 id="在-http-里面-，举例一个基本配置"><a href="#在-http-里面-，举例一个基本配置" class="headerlink" title="在 http {} 里面 ，举例一个基本配置"></a>在 http {} 里面 ，举例一个基本配置</h1><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span>        <span class="number">80</span>; <span class="comment"># 监听端口</span></span><br><span class="line">        <span class="attribute">server_name</span>    localhost; <span class="comment"># 监听地址</span></span><br><span class="line">        <span class="section">location</span> / &#123;</span><br><span class="line">            <span class="attribute">root</span> /home/root;</span><br><span class="line">            <span class="attribute">index</span> index.html;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="启动前先打开-防火墙端口-以便外网可以访问-（阿里云貌似默认打开？）"><a href="#启动前先打开-防火墙端口-以便外网可以访问-（阿里云貌似默认打开？）" class="headerlink" title="启动前先打开 防火墙端口 以便外网可以访问 （阿里云貌似默认打开？）"></a>启动前先打开 防火墙端口 以便外网可以访问 （阿里云貌似默认打开？）</h1><h1 id="启动-Nginx"><a href="#启动-Nginx" class="headerlink" title="启动 Nginx"></a>启动 Nginx</h1><p>whereis nginx</p>
+<h1 id="找到启动文件-nginx-在-usr-sbin-nginx"><a href="#找到启动文件-nginx-在-usr-sbin-nginx" class="headerlink" title="找到启动文件 nginx 在 /usr/sbin/nginx"></a>找到启动文件 nginx 在 <code>/usr/sbin/nginx</code></h1><p>执行 <code>/usr/sbin/nginx</code></p>
+<h1 id="！重启命令"><a href="#！重启命令" class="headerlink" title="！重启命令"></a>！重启命令</h1><p><code>/usr/sbin/nginx -s reload</code></p>
+<h1 id="停止命令"><a href="#停止命令" class="headerlink" title="! 停止命令"></a>! 停止命令</h1><p><code>/usr/sbin/nginx -s stop</code></p>
+<p>Done！</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/javascript%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/22/javascript%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">javascript零碎知识</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-09-08 10:39:10" itemprop="dateModified" datetime="2018-09-08T10:39:10+08:00">2018-09-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-闭包概念"><a href="#1-闭包概念" class="headerlink" title="1.闭包概念"></a>1.闭包概念</h1><p>理解闭包的前提：当某个函数被调用时，会创建一个执行环境及相应的作用域链。然后使用arguments和其他命名参数的值来初始化函数的活动对象。但在作用域链中，外部函数的活动对象始终处于第二位，外部函数的外部函数处于第三位，…直至作为作用域重点的全局执行环境。</p>
+<h1 id="2-使用new调用函数或者说发送构造函数调用会自动执行以下操作"><a href="#2-使用new调用函数或者说发送构造函数调用会自动执行以下操作" class="headerlink" title="2.使用new调用函数或者说发送构造函数调用会自动执行以下操作"></a>2.使用new调用函数或者说发送构造函数调用会自动执行以下操作</h1><ol>
+<li>创建一个全新的对象。</li>
+<li>这个新对象会被执行[[原型]]连接。</li>
+<li>这个新对象会绑定到函数调用的this。</li>
+<li>如果函数没有返回其他对象，那么new表达式中的函数调用回自动返回这个对象。</li>
+</ol>
+<h1 id="3-js严格模式下this的指向"><a href="#3-js严格模式下this的指向" class="headerlink" title="3.js严格模式下this的指向"></a>3.js严格模式下this的指向</h1><ol>
+<li>全局作用域中的this<br>在严格模式下，在全局作用域中，this指向window对象，在函数中的this等于undefined</li>
+<li>对象的函数（方法）中的this<br>在严格模式下，对象的函数（方法）中的this指向调用函数的对象实例</li>
+<li>构造函数的this<br>在严格模式下，构造函数中的this指向构造函数创建的对象实例</li>
+<li>事件处理函数中的this<br>在严格模式下，在事件处理函数中，this指向触发事件的目标对象<br>例：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">blue_it</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="variable language_">this</span> === e.<span class="property">target</span>)&#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">style</span>.<span class="property">backgroundColor</span> = <span class="string">&quot;#00f&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> elements = <span class="variable language_">document</span>.<span class="title function_">getElementsByTagName</span>(<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span> ; i&lt;elements.<span class="property">length</span> ; i++)&#123;</span><br><span class="line">    elements[i].<span class="property">onclick</span> = blue_it;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这段代码的作用是使被单击的元素背景色变为蓝色</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/node.js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/22/node.js/" class="post-title-link" itemprop="url">Node.js</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-09-04 22:57:26" itemprop="dateModified" datetime="2018-09-04T22:57:26+08:00">2018-09-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Hello Node.js</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/22/%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">基本的算法（概念篇）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-19 01:19:29" itemprop="dateModified" datetime="2022-04-19T01:19:29+08:00">2022-04-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="广度优先算法"><a href="#广度优先算法" class="headerlink" title="广度优先算法"></a>广度优先算法</h2><p>为了解决最短路径的问题。<br>它可以回答两种问题：</p>
+<ol>
+<li>从节点 A 出发，有前往节点 B 的路径吗?</li>
+<li>从节点 A 触发，前往节点 B 的哪条路径最短?</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/%E5%AF%B9redux%E7%9A%84%E7%90%86%E8%A7%A3%E4%BB%A5%E5%8F%8A%E7%BB%93%E5%90%88react%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/22/%E5%AF%B9redux%E7%9A%84%E7%90%86%E8%A7%A3%E4%BB%A5%E5%8F%8A%E7%BB%93%E5%90%88react%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">对redux的理解以及结合react的使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-09-09 18:29:00" itemprop="dateModified" datetime="2018-09-09T18:29:00+08:00">2018-09-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-Redux是什么？"><a href="#1-Redux是什么？" class="headerlink" title="1.Redux是什么？"></a>1.Redux是什么？</h1><p>官方定义是：对于JavaScript应用而已，Redux是一个可预测状态的“容器”。</p>
+<h2 id="设计哲学："><a href="#设计哲学：" class="headerlink" title="设计哲学："></a>设计哲学：</h2><p>1.数据来源单一性。不论是像计数器一样，还是复杂的聊天系统，我们都使用一个JavaScript对象来表述整个状态机的全部状态，并存储到store当中，而这个store是唯一的。获取状态：<code>let state = store.getState();</code><br>2.状态是只读的。即<code>store.getState()</code>返回的结果是只读的，不允许改变它。当页面需要新的数据状态时再生成一颗全新的状态数据树，使得<code>store.getState()</code>返回一个全新的JavaScript对象。Redux规定：当页面需要展现新的数据状态时，我们只需要<strong>dispatch</strong>一个<strong>action</strong>即可。<br>3.使用reducer函数来接收action，并执行页面状态数据树的变更。经过reducer函数处理之后，<code>store.getState()</code>就会返回新页面的数据状态。当然，经过reducer函数根据处理后，返回一个新的JavaScript对象，而不会对原返回值进行更改，因此reducer是一个纯函数。reducer并不直接更改页面的状态数据树，而是根据action产生一颗新的页面状态数，并把它应用在<code>store.getState()</code>当中。<br>reducer和action需要开发者编写，reducer接收两个参数：当前的页面数据状态和被派发的action<br><code>(previousState,action) =&gt; newState</code></p>
+<h1 id="2-Redux基本使用和实践"><a href="#2-Redux基本使用和实践" class="headerlink" title="2.Redux基本使用和实践"></a>2.Redux基本使用和实践</h1><h2 id="store"><a href="#store" class="headerlink" title="store"></a>store</h2><p>store是一个可预测状态的“容器”，保存着整个页面状态数据树，提供了重要的API。<br>API:</p>
+<ul>
+<li>dispatch(action)：派发action。</li>
+<li>subscribe(listener)：订阅页面数据状态，即store中state的变化。</li>
+<li>getState：获取当前页面状态数据树，即store中的state。</li>
+<li>replaceReducer(nextReducer)：一般用不到…我也不知道用来干嘛的？</li>
+</ul>
+<p>创建store</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">createStore</span>(reducer,preloadedState,enhancer);</span><br><span class="line"><span class="comment">// reducer：为开发者编写的reducer函数，必需。</span></span><br><span class="line"><span class="comment">// preloadedState：页面数据状态数的初始数据，可选。</span></span><br><span class="line"><span class="comment">// enhancer：增强器，函数类型，可选。一般接入中间件applyMiddleware(middleware)</span></span><br></pre></td></tr></table></figure>
+<h2 id="action"><a href="#action" class="headerlink" title="action"></a>action</h2><p>action描述了状态变更的信息，也就是需要页面做出的变化。这是由开发者定义并借助store.dispatch()派发的。action也是一个对象，Redux规定：action对象需要有一个type属性，作为确定这个action的名称。<br>action构造器一般为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">actionCreator</span> = data =&gt; &#123;</span><br><span class="line">    <span class="attr">type</span>:<span class="string">&#x27;ACTION_TYPE&#x27;</span>,</span><br><span class="line">    data</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后使用dispatch派发action，dispatch来自store对象暴露的方法，负责派发action，这个action将作为dispatch的参数。<br><code>store.dispatch(actionCreator(&#39;这里是数据&#39;)); // 派发上面的action</code></p>
+<h2 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h2><p>真正执行action的是reducer()，它必须是一个<strong>纯函数</strong>，以保证数据变化的可预测性。<br>reducer一般为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">updateStateTree</span> = (<span class="params">previousState = &#123;&#125;, action</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">switch</span>(action.<span class="property">type</span>) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;case1&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> newState1;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;case2&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> newState2;</span><br><span class="line">        <span class="attr">default</span>:</span><br><span class="line">            <span class="keyword">return</span> previousState;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// previousState为原状态，这里设置为默认值是一个空对象。</span></span><br><span class="line"><span class="comment">// 当无法匹配到的时候，返回原状态。</span></span><br></pre></td></tr></table></figure>
+<p>当多个reducer时，应考虑进行合理拆分。Redux提供了一个工具函数：combineReducers，它接收一个JavaScript对象类型的参数，这个对象的键值分别为页面数据状态分片和子reducer函数，最后合并返回一个reducer。<br><code>let resultReducer = combineReducer(&#123;reducer1,reducer2&#125;);</code><br>多个reducer时，往往将reducer命名为其处理的页面状态数据树中的键值，例如有下面的状态数据树：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">    <span class="attr">data1</span>: &#123; ... &#125;,</span><br><span class="line">    <span class="attr">data2</span>: &#123; ... &#125;,</span><br><span class="line">    <span class="attr">data3</span>: &#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后reducer命名为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">data1</span> = (<span class="params">state.data1,action</span>) =&gt; &#123; ... &#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">data2</span> = (<span class="params">state.data2,action</span>) =&gt; &#123; ... &#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">data3</span> = (<span class="params">state.data3,action</span>) =&gt; &#123; ... &#125;;</span><br></pre></td></tr></table></figure>
+<p>最后合并reducer：<br><code>const resultReducer = combineReducers(&#123;data1,data2,data3&#125;);</code></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>当通过Redux的createStore()创建一个store实例后，我们便可以使用store.dispatch()派发一个action，这个action需要开发者结合自身业务去编写。同时在执行store.dispatch()之后，Redux会“自动”帮我们执行处理变化并更新数据的reducer函数。<em><strong>从store.dispatch()到reducer这个过程可以认为是Redux内部处理的，但具体的action以及reducer需要开发者编写，以完成应用的需求。</strong></em>那么当页面数据状态得到更新之后，实际上就需要store.subscribe(callbackFn)方法订阅数据的更新，并完成UI更新。<br><img src="/articleImgs/redux%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="avatar"></p>
+<h1 id="3-Redux开发基础"><a href="#3-Redux开发基础" class="headerlink" title="3.Redux开发基础"></a>3.Redux开发基础</h1><h2 id="在Redux架构下保证reducer的不可变性"><a href="#在Redux架构下保证reducer的不可变性" class="headerlink" title="在Redux架构下保证reducer的不可变性"></a>在Redux架构下保证reducer的不可变性</h2><p>对于reducer是要保证它不可被修改的，不应该直接更改原有对象或者数组的值，因为他们是引用类型。</p>
+<h3 id="1-数组操作"><a href="#1-数组操作" class="headerlink" title="1).数组操作"></a>1).数组操作</h3><p>1.增加一项：<br>显然push()不能满足需求，它会改变原来的数组，可以考虑用**concat()**，它返回一个新的数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">addArrReducer</span> = (<span class="params">arr,action</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> arr.<span class="title function_">concat</span>(action.<span class="property">data</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> newArr = <span class="title function_">addArrReducer</span>(arr,&#123;<span class="attr">type</span>: <span class="string">&#x27;ADD&#x27;</span>, <span class="attr">data</span>:[<span class="number">4</span>]&#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr); <span class="comment">// [1,2,3]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArr); <span class="comment">// [1,2,3,4]</span></span><br></pre></td></tr></table></figure>
+
+<p>2.删除一项：<br>对于删除数组某一项，splice也不能满足需求，它会改变原来的数组，可以考虑用slice()。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">rmArrReducer</span> = (<span class="params">arr,index</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> [</span><br><span class="line">        ...arr.<span class="title function_">slice</span>(<span class="number">0</span>,index),</span><br><span class="line">        ...arr.<span class="title function_">slice</span>(index+<span class="number">1</span>)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 一般来讲index参数往往出现在action的负载数据中，如action.payload</span></span><br></pre></td></tr></table></figure>
+
+<p>3.更新一项：<br>同上面一致使用slice()来更新</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">insertOneReducer</span> = (<span class="params">arr,index</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> [</span><br><span class="line">        ...arr.<span class="title function_">slice</span>(<span class="number">0</span>,index),</span><br><span class="line">        arr[index] + <span class="number">1</span>,</span><br><span class="line">        ...arr.<span class="title function_">slice</span>(index+<span class="number">1</span>)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 一般来讲index参数往往出现在action的负载数据中，如action.payload</span></span><br><span class="line"><span class="comment">// 某一项加1操作</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-对象操作"><a href="#2-对象操作" class="headerlink" title="2).对象操作"></a>2).对象操作</h3><p>1.更新一项<br>直接修改会违背纯函数原则，一般选择ES Next新特性的Object.assign()来更新。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> item = &#123;</span><br><span class="line">    <span class="attr">id</span>:<span class="number">0</span>,</span><br><span class="line">    <span class="attr">book</span>:<span class="string">&#x27;JavaScript&#x27;</span>,</span><br><span class="line">    <span class="attr">readed</span>:<span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">setReaded</span> = (<span class="params">item</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;,item,&#123;</span><br><span class="line">        <span class="attr">readed</span>:<span class="literal">true</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 或者使用对象扩展运算符（推荐）</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">setReaded</span> = (<span class="params">item</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        ...item,</span><br><span class="line">        <span class="attr">readed</span>:<span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.增加一项<br>与上面同理，一般使用对象扩展运算符。<br>3.删除一项</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> item = &#123;</span><br><span class="line">    <span class="attr">id</span>:<span class="number">0</span>,</span><br><span class="line">    <span class="attr">book</span>:<span class="string">&#x27;JavaScript&#x27;</span>,</span><br><span class="line">    <span class="attr">readed</span>:<span class="literal">false</span>,</span><br><span class="line">    <span class="attr">note</span>:<span class="number">13</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> newItem = <span class="title class_">Object</span>.<span class="title function_">keys</span>(item).<span class="title function_">reduce</span>(<span class="function">(<span class="params">obj,key</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(key !== <span class="string">&#x27;note&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; ...obj, [key] : item[key]&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> obj</span><br><span class="line">&#125;, &#123;&#125;);</span><br></pre></td></tr></table></figure>
+<p>4.深入拷贝嵌套数据<br>需要注意的是：Object.assign()以及扩展运算符等都是浅操作。如果在item外在嵌套一层：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">item1</span>:&#123;</span><br><span class="line">        <span class="attr">id</span>:<span class="number">0</span>,</span><br><span class="line">        <span class="attr">book</span>:<span class="string">&#x27;javascript&#x27;</span>,</span><br><span class="line">        <span class="attr">readed</span>:<span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 应该需要手动分开所有层分别拷贝，实现一种深拷贝</span></span><br><span class="line"><span class="keyword">let</span> item1 = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, data.<span class="property">item1</span>);</span><br><span class="line"><span class="keyword">let</span> newDate = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, &#123;item1&#125;);</span><br><span class="line">newData.<span class="property">item1</span>.<span class="property">readed</span> = <span class="literal">true</span>; <span class="comment">// 修改内层对象某一项</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(data.<span class="property">item1</span>.<span class="property">readed</span>); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newData.<span class="property">item1</span>.<span class="property">readed</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>当然，也可以自己实现一个深拷贝函数。</p>
+<h2 id="Redux中间件和异步"><a href="#Redux中间件和异步" class="headerlink" title="Redux中间件和异步"></a>Redux中间件和异步</h2><h3 id="初始Redux中间件"><a href="#初始Redux中间件" class="headerlink" title="初始Redux中间件"></a>初始Redux中间件</h3><p>中间件可以在派发任何一个action和执行reducer这两步之间，添加自定扩展功能，例如 异步请求、日志打印等等。<br>流程如图：<br><img src="/articleImgs/middleware%E8%A7%92%E8%89%B2%E5%9B%BE.png" alt="avatar"><br>中间件可以在action到达reducer之前进行日志记录、中断action触发，甚至修改action，或者不进行处理。可以接入多个中间件。<br>使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore,applyMiddleware &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> createLogger <span class="keyword">from</span> <span class="string">&#x27;redux-logger&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> logger = <span class="title function_">createLogger</span>();</span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">createStore</span>(</span><br><span class="line">    reducer,</span><br><span class="line">    <span class="title function_">applyMiddleware</span>(thunk,logger) <span class="comment">// 注意这里的logger要放在所有中间件最后方可生效！</span></span><br><span class="line">)</span><br><span class="line"><span class="comment">// 这里省略了第二个参数，如果有初始化数据，那么applyMiddleware(...arg)将作为第三个参数</span></span><br></pre></td></tr></table></figure>
+<h3 id="Redux的异步处理"><a href="#Redux的异步处理" class="headerlink" title="Redux的异步处理"></a>Redux的异步处理</h3><p>dispatch()派发的默认参数只能是一个JavaScript对象，如果要异步处理，则dispatch()接收一个函数为参数，在函数体内进行异步操作，并在异步完成后在派发相应的action。<br>而redux-thunk中间件正是解决了异步处理问题！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入redux创建store和应用中间件等代码省略...</span></span><br><span class="line">store.<span class="title function_">dispatch</span>(<span class="title function_">fetchNewBook</span>(<span class="string">&#x27;learnRedux&#x27;</span>));</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fetchNewBook</span>(<span class="params">book</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">dispatch</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 即将请求，可在对应reducer处理渲染“转圈圈”的UI</span></span><br><span class="line">        <span class="title function_">dispatch</span>(&#123;</span><br><span class="line">            <span class="attr">type</span>:<span class="string">&#x27;START_FETCH_NEW_BOOK&#x27;</span>,</span><br><span class="line">            <span class="attr">data</span>:book</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// ajax请求</span></span><br><span class="line">        <span class="title function_">ajax</span>(&#123;</span><br><span class="line">            <span class="attr">url</span>:<span class="string">`/api/<span class="subst">$&#123;book&#125;</span>.json`</span>,</span><br><span class="line">            <span class="attr">type</span>:<span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">            <span class="attr">data</span>:&#123;&#125;</span><br><span class="line">        &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 请求成功后reducer根据action.data（即res)来进行页面状态更新</span></span><br><span class="line">            <span class="title function_">dispatch</span>(&#123;</span><br><span class="line">                <span class="attr">type</span>:<span class="string">&#x27;FETCH_NEW_BOOK_SUCCESS&#x27;</span>,</span><br><span class="line">                <span class="attr">data</span>:res</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>整体的过程如图：<br><img src="/articleImgs/redux-thunk%E4%B8%AD%E9%97%B4%E4%BB%B6%E8%A7%92%E8%89%B2%E5%9B%BE.png" alt="avatar"><br>redux-thunk对于异步处理的关键在于：使dispatch能够接收异步函数，我们完全可以控制dispatch响应action的时机。</p>
+<h1 id="4-结合react使用redux"><a href="#4-结合react使用redux" class="headerlink" title="4.结合react使用redux"></a>4.结合react使用redux</h1><h2 id="使用react-redux库"><a href="#使用react-redux库" class="headerlink" title="使用react-redux库"></a>使用react-redux库</h2><p>react-redux是对React和Redux进行了连接，对Redux的方法进行了封装和增强，使得使用起来非常方便。<br><strong>容器组件：</strong>指数据状态和逻辑的容器。它并不负责展示，而是只维护内部状态，进行数据分发和处理派发action。因此容器组件对Reudx是感知的，可以使用Redux的API，比如dispatch()等。<br><strong>展示组件：</strong>只负责接收相应的数据，完成页面展示，它本身并不维护数据和状态。实际上，为了渲染页面，展示组件所需要的所有数据都由容器组件通过<strong>props</strong>层层传递。<br><img src="/articleImgs/%E5%AE%B9%E5%99%A8%E7%BB%84%E4%BB%B6%E5%92%8C%E5%B1%95%E7%A4%BA%E7%BB%84%E4%BB%B6.png" alt="avatar"></p>
+<table>
+<thead>
+<tr>
+<th align="center">描述</th>
+<th align="center">展示组件</th>
+<th align="center">容器组件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">目的</td>
+<td align="center">展示内容</td>
+<td align="center">处理数据和逻辑</td>
+</tr>
+<tr>
+<td align="center">是否感知Redux</td>
+<td align="center">不感知</td>
+<td align="center">感知</td>
+</tr>
+<tr>
+<td align="center">数据来源</td>
+<td align="center">从props获取</td>
+<td align="center">从Redux state订阅获取</td>
+</tr>
+<tr>
+<td align="center">改变数据</td>
+<td align="center">通过回调props派发action</td>
+<td align="center">直接派发action</td>
+</tr>
+<tr>
+<td align="center">由谁编写</td>
+<td align="center">开发者</td>
+<td align="center">由react-redux库生产</td>
+</tr>
+</tbody></table>
+<p>react-redux有个最重要的方法：<strong>connect()</strong><br><code>connect([mapStateToProps],[mapDispatchToProps],[mergeProps],[options]);</code><br>connect()是用来连接容器组件和展示组件。它的核心是将开发者定义的组件，包装转换生成容器组件。所生成的容器组件能使用Redux store中的那些数据，全由connect()的参数来确定。<br>一般用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">connect</span>(mapStateToProps,mapDispatchToProps)(presentationalComponent);</span><br></pre></td></tr></table></figure>
+<p>第一次执行的第一个参数是一个函数，其作用是给返回的组件注入props，这个props来自Redux store中的状态。所以这个函数一定要返回一个纯JavaScript对象。第一次的第二个参数可以是一个函数也可以是一个对象，如果是一个函数，则这个函数接收dispatch()以及容器的props作为参数，最终也返回一个对象；如果是一个对象，那么兼键值应该是一个函数，用来描述action的生成。第二次执行的参数是接收一个正常的展示组件，并在这基础上返回一个容器组件。<br>mapStateToProps一般编写形式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">mapStateToProps</span> = (<span class="params">state</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">value</span>:state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它完成从store中选取数据并通过props传递给将要创建的容器组件。</p>
+<p>mapDispatchToProps一般编写形式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接收函数</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">mapDispatchToProps</span> = (<span class="params">dispatch,ownProps</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">onAct</span>:<span class="function">() =&gt;</span> <span class="title function_">dispatch</span>(&#123;</span><br><span class="line">            <span class="attr">type</span>:<span class="string">&#x27;CLICK_ACTION&#x27;</span>,</span><br><span class="line">            <span class="attr">data</span>:ownProps.<span class="property">data</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 接收对象</span></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = &#123;</span><br><span class="line">    <span class="attr">onAct</span>:<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="attr">type</span>:<span class="string">&#x27;CLICK_ACTION&#x27;</span>,</span><br><span class="line">        <span class="attr">data</span>:data</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>mapStateToProps和mapDispatchToProps定义了展示组件需要用到的store内容。其中mapStateToProps负责输入逻辑，就是将状态数据映射到展示组件的参数（props）上；后者负责输出逻辑，即将用户对展示组件的操作映射成action。<br>两者个参数是可选的。当只有前者的参数时，默认情况下，dispatch()会注入最后返回的容器组件的props中，而只有后者则把前者填上null。两个都忽略时，Redux store的状态数据无法传递下来，因此返回的容器组件就不会监听store的任何变化。<br>最后，react-redux提供了Provider组件，一般用法是需要将Provider作为整个应用的根组件，并获取store为其prop，以便后续进行下发处理。<br>所以，在开发中，借助于react-redux的基本模式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">App</span> = <span class="title function_">connect</span>(mapStateToProps,mapDispatchToProps)(presentationalComponent);</span><br><span class="line"><span class="title class_">ReactDom</span>.<span class="title function_">render</span>(</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">App</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p><em>注：读完《React状态管理与同构实战》第三章的理解</em></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/%E7%90%86%E8%A7%A3JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/22/%E7%90%86%E8%A7%A3JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">理解JavaScript数据结构与算法</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-09-13 19:35:38" itemprop="dateModified" datetime="2018-09-13T19:35:38+08:00">2018-09-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="提前储备知识"><a href="#提前储备知识" class="headerlink" title="提前储备知识"></a>提前储备知识</h1><h2 id="Array-prototy上常用的方法"><a href="#Array-prototy上常用的方法" class="headerlink" title="Array.prototy上常用的方法"></a>Array.prototy上常用的方法</h2><p><em>比较啰嗦，但可以复习一下！~</em><br>添加元素:<br><code>push()</code> 方法将一个或多个元素添加到数组的末尾，并返回新数组的长度。<br><code>unshift()</code> 方法将一个或多个元素添加到数组的开头，并返回新数组的长度。<br>删除元素：<br><code>pop()</code> 方法从数组中删除最后一个元素，并返回该元素的值。此方法更改数组的长度。<br><code>shift()</code> 方法从数组中删除第一个元素，并返回该元素的值。此方法更改数组的长度。<br>如果在一个空数组上调用pop()或shift()，它返回<code>undefined</code>。<br>在任意位置添加或删除元素：<br><code>splice(start,[deleteCount],[itemN])</code> 方法通过删除现有元素和&#x2F;或添加新元素来<strong>更改</strong>一个数组的内容,会直接对数组进行修改。<br>参数<strong>start</strong> 指定修改的开始位置（从0计数），如果超出了数组长度，则从数组末尾开始添加内容。如果是负值，则表示从数组末位开始的第几位。如果负数的绝对值大于数组的长度，则表示开始位置为第0位。<br><strong>deleteCount</strong> 可选，整数，表示要移除的数组元素的个数。如果为0则不删除。<br><strong>itemN</strong> 可选，要添加的元素，从start位置开始。如果不指定，则 splice() 将只删除数组元素。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line">arr.<span class="title function_">splice</span>(<span class="number">2</span>,<span class="number">0</span>,<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>); <span class="comment">// 返回undefined</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr); <span class="comment">// [1,2,&#x27;a&#x27;,&#x27;b&#x27;,3,4]</span></span><br><span class="line">arr.<span class="title function_">splice</span>(<span class="number">3</span>,<span class="number">2</span>); <span class="comment">// [&#x27;b&#x27;,3]</span></span><br></pre></td></tr></table></figure>
+<p>如果是删除则返回被删除的元素组成的数组。<br>浅拷贝：<br><code>slice(start,end)</code> 方法返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象。返回新元素数组，且原始数组不会被修改。<br>参数start为开始索引值（从0计数）如果为负数，则从末尾开始，end为结束的索引值（不包括end），如果省略则一直提取到数组末尾。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line">arr1.<span class="title function_">slice</span>(<span class="number">2</span>,<span class="number">4</span>); <span class="comment">// [3,4]</span></span><br></pre></td></tr></table></figure>
+<p><code>concat()</code> 方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。<br>排序元素：<br><code>reverse()</code> 方法将数组中元素的位置颠倒，没有参数。第一个数组元素成为最后一个数组元素，最后一个数组元素成为第一个。<br><code>sort()</code> 方法用原地算法对数组的元素进行排序，并返回数组。默认排序顺序是根据字符串Unicode码点。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">9</span>];</span><br><span class="line">arr.<span class="title function_">sort</span>(<span class="function">(<span class="params">a,b</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a - b; <span class="comment">// 从小到大排序</span></span><br><span class="line">&#125;); <span class="comment">// [1, 3, 4, 5, 9]</span></span><br></pre></td></tr></table></figure>
+<p>迭代器函数：</p>
+<p>其他：<br><code>join()</code> 方法将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符串。<br><code>indexOf()</code> 方法返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/%E7%90%86%E8%A7%A3%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E6%8F%90%E5%8D%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/22/%E7%90%86%E8%A7%A3%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E6%8F%90%E5%8D%87/" class="post-title-link" itemprop="url">理解变量声明提升以及作用域</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-09-14 17:27:40" itemprop="dateModified" datetime="2018-09-14T17:27:40+08:00">2018-09-14</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>#作用域<br>JavaScript采用的是<strong>词法作用域</strong>，是指作用域在函数定义的地方。与之对应的是<strong>动态作用域</strong>，指作用域在函数调用的地方。<br>JavaScript中变量是函数级作用域而不是块级作用域（即变量定义的作用域并不是离最近的封闭语句或者代码块，而是包含它们的函数），ES5的try{}catch除外，ES6开始支持。<br>变量声明提升：函数声明和变量声明总是被JavaScript解释器提升到包含它们的作用域顶部。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line">	<span class="keyword">var</span> num;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++) &#123;</span><br><span class="line">		num = i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;i&#x27;</span>,i); <span class="comment">// i 3</span></span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;num&#x27;</span>,num); <span class="comment">// num 2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 相当于以下</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123; </span><br><span class="line">	<span class="keyword">var</span> num,i;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++) &#123;</span><br><span class="line">		num = i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;i&#x27;</span>,i); <span class="comment">// i 3</span></span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;num&#x27;</span>,num); <span class="comment">// num 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要注意变量声明中，赋值是不会提升的（赋值函数也是），仅仅是变量名字被提升了。而函数声明则是整个函数体被提升。<br><strong>函数声明优先于变量声明。</strong> 因为函数在JavaScript是 “一等公民”…</p>
+<h1 id="编写习惯"><a href="#编写习惯" class="headerlink" title="编写习惯"></a>编写习惯</h1><p>为了减少变量声明混乱，建议编写时候使用“单var”形式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> i,</span><br><span class="line">        a=<span class="number">3</span>,</span><br><span class="line">        b=<span class="string">&#x27;str&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="使用IIFE函数创建局部作用域"><a href="#使用IIFE函数创建局部作用域" class="headerlink" title="使用IIFE函数创建局部作用域"></a>使用IIFE函数创建局部作用域</h1><p>考虑以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">a</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> arr= [],i,n;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>,n=a.<span class="property">length</span>; i&lt; n;i++) &#123;</span><br><span class="line">         arr[i] = <span class="keyword">function</span>(<span class="params"></span>) &#123; </span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;i&#x27;</span>,i); </span><br><span class="line">            <span class="keyword">return</span> a[i] </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="title function_">fn</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]); <span class="comment">// i 5</span></span><br><span class="line"><span class="keyword">var</span> f = obj[<span class="number">0</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">f</span>()); <span class="comment">// 输出undefined，而不是10</span></span><br></pre></td></tr></table></figure>
+<p>搞清楚这道程序在于理解绑定与赋值的区别。在运行时进入一个作用域，JavaScript会为每一个绑定到该作用域的变量在内存分配一个“槽”，fn函数绑定了三个局部变量即arr、i和n。在循环的每次迭代中，循环体都会为嵌套函数分配一个闭包，而闭包函数里面存的是变量i的引用，由于每一次函数创建后i都发生了变化，因此内部函数最终看到的是i最后的值。（值得注意的是闭包存储的是其外部变量的引用而不是值）<br>可以改为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">fn</span>(<span class="params">a</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> arr= [],i,n;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>,n=a.<span class="property">length</span>; i&lt; n;i++) &#123;</span><br><span class="line">         (arr[j] = <span class="keyword">function</span>(<span class="params"></span>) &#123; </span><br><span class="line">            <span class="keyword">return</span> a[j] </span><br><span class="line">        &#125;)(i)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但值得注意的是：代码块不能包含break与continue语句，因为在函数外使用它们是不合法的。</p>
+<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><p>ECMAScript标准里写道：</p>
+<blockquote>
+<p>如果在一个函数中声明变量，这些变量就被定义在了在该函数的函数作用域中。不然它们就是被定义在全局的作用域内（即它们被创建为全局对象的成员），当进入执行环境的时候，变量就被创建。一个语句块不能定义一个新的作用域。只有一个程序或者函数声明能够产生一个新的作用域。创建变量时，被初始化为undefined。如果变量声明语句里面带有赋值操作，则赋值操作只有被执行到声明语句的时候才会发生，而不是创建的时候。</p>
+</blockquote>
 
       
     </div>
@@ -257,10 +1022,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
@@ -279,8 +1044,8 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
   </nav>
@@ -313,7 +1078,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">csd</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
         

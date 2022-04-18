@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1.Redux是什么？官方定义是：对于JavaScript应用而已，Redux是一个可预测状态的“容器”。 设计哲学：1.数据来源单一性。不论是像计数器一样，还是复杂的聊天系统，我们都使用一个JavaScript对象来表述整个状态机的全部状态，并存储到store当中，而这个store是唯一的。获取状态：let state &#x3D; store.getState();2.状态是只读的。即store.get">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对redux的理解以及结合react的使用">
+<meta property="og:url" content="http://example.com/2020/02/22/%E5%AF%B9redux%E7%9A%84%E7%90%86%E8%A7%A3%E4%BB%A5%E5%8F%8A%E7%BB%93%E5%90%88react%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="记录前端&amp;Node.js以及生活琐事">
+<meta property="og:description" content="1.Redux是什么？官方定义是：对于JavaScript应用而已，Redux是一个可预测状态的“容器”。 设计哲学：1.数据来源单一性。不论是像计数器一样，还是复杂的聊天系统，我们都使用一个JavaScript对象来表述整个状态机的全部状态，并存储到store当中，而这个store是唯一的。获取状态：let state &#x3D; store.getState();2.状态是只读的。即store.get">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/articleImgs/redux%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="http://example.com/articleImgs/middleware%E8%A7%92%E8%89%B2%E5%9B%BE.png">
+<meta property="og:image" content="http://example.com/articleImgs/redux-thunk%E4%B8%AD%E9%97%B4%E4%BB%B6%E8%A7%92%E8%89%B2%E5%9B%BE.png">
+<meta property="og:image" content="http://example.com/articleImgs/%E5%AE%B9%E5%99%A8%E7%BB%84%E4%BB%B6%E5%92%8C%E5%B1%95%E7%A4%BA%E7%BB%84%E4%BB%B6.png">
+<meta property="article:published_time" content="2020-02-22T04:24:24.000Z">
+<meta property="article:modified_time" content="2018-09-09T10:29:00.000Z">
+<meta property="article:author" content="csd">
+<meta property="article:tag" content="funbfe 博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/articleImgs/redux%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+
+<link rel="canonical" href="http://example.com/2020/02/22/%E5%AF%B9redux%E7%9A%84%E7%90%86%E8%A7%A3%E4%BB%A5%E5%8F%8A%E7%BB%93%E5%90%88react%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>对redux的理解以及结合react的使用 | 记录前端&Node.js以及生活琐事</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">记录前端&Node.js以及生活琐事</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/%E5%AF%B9redux%E7%9A%84%E7%90%86%E8%A7%A3%E4%BB%A5%E5%8F%8A%E7%BB%93%E5%90%88react%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          对redux的理解以及结合react的使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-09-09 18:29:00" itemprop="dateModified" datetime="2018-09-09T18:29:00+08:00">2018-09-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-Redux是什么？"><a href="#1-Redux是什么？" class="headerlink" title="1.Redux是什么？"></a>1.Redux是什么？</h1><p>官方定义是：对于JavaScript应用而已，Redux是一个可预测状态的“容器”。</p>
+<h2 id="设计哲学："><a href="#设计哲学：" class="headerlink" title="设计哲学："></a>设计哲学：</h2><p>1.数据来源单一性。不论是像计数器一样，还是复杂的聊天系统，我们都使用一个JavaScript对象来表述整个状态机的全部状态，并存储到store当中，而这个store是唯一的。获取状态：<code>let state = store.getState();</code><br>2.状态是只读的。即<code>store.getState()</code>返回的结果是只读的，不允许改变它。当页面需要新的数据状态时再生成一颗全新的状态数据树，使得<code>store.getState()</code>返回一个全新的JavaScript对象。Redux规定：当页面需要展现新的数据状态时，我们只需要<strong>dispatch</strong>一个<strong>action</strong>即可。<br>3.使用reducer函数来接收action，并执行页面状态数据树的变更。经过reducer函数处理之后，<code>store.getState()</code>就会返回新页面的数据状态。当然，经过reducer函数根据处理后，返回一个新的JavaScript对象，而不会对原返回值进行更改，因此reducer是一个纯函数。reducer并不直接更改页面的状态数据树，而是根据action产生一颗新的页面状态数，并把它应用在<code>store.getState()</code>当中。<br>reducer和action需要开发者编写，reducer接收两个参数：当前的页面数据状态和被派发的action<br><code>(previousState,action) =&gt; newState</code></p>
+<h1 id="2-Redux基本使用和实践"><a href="#2-Redux基本使用和实践" class="headerlink" title="2.Redux基本使用和实践"></a>2.Redux基本使用和实践</h1><h2 id="store"><a href="#store" class="headerlink" title="store"></a>store</h2><p>store是一个可预测状态的“容器”，保存着整个页面状态数据树，提供了重要的API。<br>API:</p>
+<ul>
+<li>dispatch(action)：派发action。</li>
+<li>subscribe(listener)：订阅页面数据状态，即store中state的变化。</li>
+<li>getState：获取当前页面状态数据树，即store中的state。</li>
+<li>replaceReducer(nextReducer)：一般用不到…我也不知道用来干嘛的？</li>
+</ul>
+<p>创建store</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">createStore</span>(reducer,preloadedState,enhancer);</span><br><span class="line"><span class="comment">// reducer：为开发者编写的reducer函数，必需。</span></span><br><span class="line"><span class="comment">// preloadedState：页面数据状态数的初始数据，可选。</span></span><br><span class="line"><span class="comment">// enhancer：增强器，函数类型，可选。一般接入中间件applyMiddleware(middleware)</span></span><br></pre></td></tr></table></figure>
+<h2 id="action"><a href="#action" class="headerlink" title="action"></a>action</h2><p>action描述了状态变更的信息，也就是需要页面做出的变化。这是由开发者定义并借助store.dispatch()派发的。action也是一个对象，Redux规定：action对象需要有一个type属性，作为确定这个action的名称。<br>action构造器一般为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">actionCreator</span> = data =&gt; &#123;</span><br><span class="line">    <span class="attr">type</span>:<span class="string">&#x27;ACTION_TYPE&#x27;</span>,</span><br><span class="line">    data</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后使用dispatch派发action，dispatch来自store对象暴露的方法，负责派发action，这个action将作为dispatch的参数。<br><code>store.dispatch(actionCreator(&#39;这里是数据&#39;)); // 派发上面的action</code></p>
+<h2 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h2><p>真正执行action的是reducer()，它必须是一个<strong>纯函数</strong>，以保证数据变化的可预测性。<br>reducer一般为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">updateStateTree</span> = (<span class="params">previousState = &#123;&#125;, action</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">switch</span>(action.<span class="property">type</span>) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;case1&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> newState1;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;case2&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> newState2;</span><br><span class="line">        <span class="attr">default</span>:</span><br><span class="line">            <span class="keyword">return</span> previousState;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// previousState为原状态，这里设置为默认值是一个空对象。</span></span><br><span class="line"><span class="comment">// 当无法匹配到的时候，返回原状态。</span></span><br></pre></td></tr></table></figure>
+<p>当多个reducer时，应考虑进行合理拆分。Redux提供了一个工具函数：combineReducers，它接收一个JavaScript对象类型的参数，这个对象的键值分别为页面数据状态分片和子reducer函数，最后合并返回一个reducer。<br><code>let resultReducer = combineReducer(&#123;reducer1,reducer2&#125;);</code><br>多个reducer时，往往将reducer命名为其处理的页面状态数据树中的键值，例如有下面的状态数据树：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">    <span class="attr">data1</span>: &#123; ... &#125;,</span><br><span class="line">    <span class="attr">data2</span>: &#123; ... &#125;,</span><br><span class="line">    <span class="attr">data3</span>: &#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后reducer命名为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">data1</span> = (<span class="params">state.data1,action</span>) =&gt; &#123; ... &#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">data2</span> = (<span class="params">state.data2,action</span>) =&gt; &#123; ... &#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">data3</span> = (<span class="params">state.data3,action</span>) =&gt; &#123; ... &#125;;</span><br></pre></td></tr></table></figure>
+<p>最后合并reducer：<br><code>const resultReducer = combineReducers(&#123;data1,data2,data3&#125;);</code></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>当通过Redux的createStore()创建一个store实例后，我们便可以使用store.dispatch()派发一个action，这个action需要开发者结合自身业务去编写。同时在执行store.dispatch()之后，Redux会“自动”帮我们执行处理变化并更新数据的reducer函数。<em><strong>从store.dispatch()到reducer这个过程可以认为是Redux内部处理的，但具体的action以及reducer需要开发者编写，以完成应用的需求。</strong></em>那么当页面数据状态得到更新之后，实际上就需要store.subscribe(callbackFn)方法订阅数据的更新，并完成UI更新。<br><img src="/articleImgs/redux%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="avatar"></p>
+<h1 id="3-Redux开发基础"><a href="#3-Redux开发基础" class="headerlink" title="3.Redux开发基础"></a>3.Redux开发基础</h1><h2 id="在Redux架构下保证reducer的不可变性"><a href="#在Redux架构下保证reducer的不可变性" class="headerlink" title="在Redux架构下保证reducer的不可变性"></a>在Redux架构下保证reducer的不可变性</h2><p>对于reducer是要保证它不可被修改的，不应该直接更改原有对象或者数组的值，因为他们是引用类型。</p>
+<h3 id="1-数组操作"><a href="#1-数组操作" class="headerlink" title="1).数组操作"></a>1).数组操作</h3><p>1.增加一项：<br>显然push()不能满足需求，它会改变原来的数组，可以考虑用**concat()**，它返回一个新的数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">addArrReducer</span> = (<span class="params">arr,action</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> arr.<span class="title function_">concat</span>(action.<span class="property">data</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> newArr = <span class="title function_">addArrReducer</span>(arr,&#123;<span class="attr">type</span>: <span class="string">&#x27;ADD&#x27;</span>, <span class="attr">data</span>:[<span class="number">4</span>]&#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr); <span class="comment">// [1,2,3]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArr); <span class="comment">// [1,2,3,4]</span></span><br></pre></td></tr></table></figure>
+
+<p>2.删除一项：<br>对于删除数组某一项，splice也不能满足需求，它会改变原来的数组，可以考虑用slice()。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">rmArrReducer</span> = (<span class="params">arr,index</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> [</span><br><span class="line">        ...arr.<span class="title function_">slice</span>(<span class="number">0</span>,index),</span><br><span class="line">        ...arr.<span class="title function_">slice</span>(index+<span class="number">1</span>)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 一般来讲index参数往往出现在action的负载数据中，如action.payload</span></span><br></pre></td></tr></table></figure>
+
+<p>3.更新一项：<br>同上面一致使用slice()来更新</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">insertOneReducer</span> = (<span class="params">arr,index</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> [</span><br><span class="line">        ...arr.<span class="title function_">slice</span>(<span class="number">0</span>,index),</span><br><span class="line">        arr[index] + <span class="number">1</span>,</span><br><span class="line">        ...arr.<span class="title function_">slice</span>(index+<span class="number">1</span>)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 一般来讲index参数往往出现在action的负载数据中，如action.payload</span></span><br><span class="line"><span class="comment">// 某一项加1操作</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-对象操作"><a href="#2-对象操作" class="headerlink" title="2).对象操作"></a>2).对象操作</h3><p>1.更新一项<br>直接修改会违背纯函数原则，一般选择ES Next新特性的Object.assign()来更新。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> item = &#123;</span><br><span class="line">    <span class="attr">id</span>:<span class="number">0</span>,</span><br><span class="line">    <span class="attr">book</span>:<span class="string">&#x27;JavaScript&#x27;</span>,</span><br><span class="line">    <span class="attr">readed</span>:<span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">setReaded</span> = (<span class="params">item</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;,item,&#123;</span><br><span class="line">        <span class="attr">readed</span>:<span class="literal">true</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 或者使用对象扩展运算符（推荐）</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">setReaded</span> = (<span class="params">item</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        ...item,</span><br><span class="line">        <span class="attr">readed</span>:<span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.增加一项<br>与上面同理，一般使用对象扩展运算符。<br>3.删除一项</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> item = &#123;</span><br><span class="line">    <span class="attr">id</span>:<span class="number">0</span>,</span><br><span class="line">    <span class="attr">book</span>:<span class="string">&#x27;JavaScript&#x27;</span>,</span><br><span class="line">    <span class="attr">readed</span>:<span class="literal">false</span>,</span><br><span class="line">    <span class="attr">note</span>:<span class="number">13</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> newItem = <span class="title class_">Object</span>.<span class="title function_">keys</span>(item).<span class="title function_">reduce</span>(<span class="function">(<span class="params">obj,key</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span>(key !== <span class="string">&#x27;note&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; ...obj, [key] : item[key]&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> obj</span><br><span class="line">&#125;, &#123;&#125;);</span><br></pre></td></tr></table></figure>
+<p>4.深入拷贝嵌套数据<br>需要注意的是：Object.assign()以及扩展运算符等都是浅操作。如果在item外在嵌套一层：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">item1</span>:&#123;</span><br><span class="line">        <span class="attr">id</span>:<span class="number">0</span>,</span><br><span class="line">        <span class="attr">book</span>:<span class="string">&#x27;javascript&#x27;</span>,</span><br><span class="line">        <span class="attr">readed</span>:<span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 应该需要手动分开所有层分别拷贝，实现一种深拷贝</span></span><br><span class="line"><span class="keyword">let</span> item1 = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, data.<span class="property">item1</span>);</span><br><span class="line"><span class="keyword">let</span> newDate = <span class="title class_">Object</span>.<span class="title function_">assign</span>(&#123;&#125;, &#123;item1&#125;);</span><br><span class="line">newData.<span class="property">item1</span>.<span class="property">readed</span> = <span class="literal">true</span>; <span class="comment">// 修改内层对象某一项</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(data.<span class="property">item1</span>.<span class="property">readed</span>); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newData.<span class="property">item1</span>.<span class="property">readed</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>当然，也可以自己实现一个深拷贝函数。</p>
+<h2 id="Redux中间件和异步"><a href="#Redux中间件和异步" class="headerlink" title="Redux中间件和异步"></a>Redux中间件和异步</h2><h3 id="初始Redux中间件"><a href="#初始Redux中间件" class="headerlink" title="初始Redux中间件"></a>初始Redux中间件</h3><p>中间件可以在派发任何一个action和执行reducer这两步之间，添加自定扩展功能，例如 异步请求、日志打印等等。<br>流程如图：<br><img src="/articleImgs/middleware%E8%A7%92%E8%89%B2%E5%9B%BE.png" alt="avatar"><br>中间件可以在action到达reducer之前进行日志记录、中断action触发，甚至修改action，或者不进行处理。可以接入多个中间件。<br>使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore,applyMiddleware &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">&#x27;redux-thunk&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> createLogger <span class="keyword">from</span> <span class="string">&#x27;redux-logger&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> logger = <span class="title function_">createLogger</span>();</span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">createStore</span>(</span><br><span class="line">    reducer,</span><br><span class="line">    <span class="title function_">applyMiddleware</span>(thunk,logger) <span class="comment">// 注意这里的logger要放在所有中间件最后方可生效！</span></span><br><span class="line">)</span><br><span class="line"><span class="comment">// 这里省略了第二个参数，如果有初始化数据，那么applyMiddleware(...arg)将作为第三个参数</span></span><br></pre></td></tr></table></figure>
+<h3 id="Redux的异步处理"><a href="#Redux的异步处理" class="headerlink" title="Redux的异步处理"></a>Redux的异步处理</h3><p>dispatch()派发的默认参数只能是一个JavaScript对象，如果要异步处理，则dispatch()接收一个函数为参数，在函数体内进行异步操作，并在异步完成后在派发相应的action。<br>而redux-thunk中间件正是解决了异步处理问题！</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入redux创建store和应用中间件等代码省略...</span></span><br><span class="line">store.<span class="title function_">dispatch</span>(<span class="title function_">fetchNewBook</span>(<span class="string">&#x27;learnRedux&#x27;</span>));</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">fetchNewBook</span>(<span class="params">book</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">dispatch</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 即将请求，可在对应reducer处理渲染“转圈圈”的UI</span></span><br><span class="line">        <span class="title function_">dispatch</span>(&#123;</span><br><span class="line">            <span class="attr">type</span>:<span class="string">&#x27;START_FETCH_NEW_BOOK&#x27;</span>,</span><br><span class="line">            <span class="attr">data</span>:book</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// ajax请求</span></span><br><span class="line">        <span class="title function_">ajax</span>(&#123;</span><br><span class="line">            <span class="attr">url</span>:<span class="string">`/api/<span class="subst">$&#123;book&#125;</span>.json`</span>,</span><br><span class="line">            <span class="attr">type</span>:<span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">            <span class="attr">data</span>:&#123;&#125;</span><br><span class="line">        &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 请求成功后reducer根据action.data（即res)来进行页面状态更新</span></span><br><span class="line">            <span class="title function_">dispatch</span>(&#123;</span><br><span class="line">                <span class="attr">type</span>:<span class="string">&#x27;FETCH_NEW_BOOK_SUCCESS&#x27;</span>,</span><br><span class="line">                <span class="attr">data</span>:res</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>整体的过程如图：<br><img src="/articleImgs/redux-thunk%E4%B8%AD%E9%97%B4%E4%BB%B6%E8%A7%92%E8%89%B2%E5%9B%BE.png" alt="avatar"><br>redux-thunk对于异步处理的关键在于：使dispatch能够接收异步函数，我们完全可以控制dispatch响应action的时机。</p>
+<h1 id="4-结合react使用redux"><a href="#4-结合react使用redux" class="headerlink" title="4.结合react使用redux"></a>4.结合react使用redux</h1><h2 id="使用react-redux库"><a href="#使用react-redux库" class="headerlink" title="使用react-redux库"></a>使用react-redux库</h2><p>react-redux是对React和Redux进行了连接，对Redux的方法进行了封装和增强，使得使用起来非常方便。<br><strong>容器组件：</strong>指数据状态和逻辑的容器。它并不负责展示，而是只维护内部状态，进行数据分发和处理派发action。因此容器组件对Reudx是感知的，可以使用Redux的API，比如dispatch()等。<br><strong>展示组件：</strong>只负责接收相应的数据，完成页面展示，它本身并不维护数据和状态。实际上，为了渲染页面，展示组件所需要的所有数据都由容器组件通过<strong>props</strong>层层传递。<br><img src="/articleImgs/%E5%AE%B9%E5%99%A8%E7%BB%84%E4%BB%B6%E5%92%8C%E5%B1%95%E7%A4%BA%E7%BB%84%E4%BB%B6.png" alt="avatar"></p>
+<table>
+<thead>
+<tr>
+<th align="center">描述</th>
+<th align="center">展示组件</th>
+<th align="center">容器组件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">目的</td>
+<td align="center">展示内容</td>
+<td align="center">处理数据和逻辑</td>
+</tr>
+<tr>
+<td align="center">是否感知Redux</td>
+<td align="center">不感知</td>
+<td align="center">感知</td>
+</tr>
+<tr>
+<td align="center">数据来源</td>
+<td align="center">从props获取</td>
+<td align="center">从Redux state订阅获取</td>
+</tr>
+<tr>
+<td align="center">改变数据</td>
+<td align="center">通过回调props派发action</td>
+<td align="center">直接派发action</td>
+</tr>
+<tr>
+<td align="center">由谁编写</td>
+<td align="center">开发者</td>
+<td align="center">由react-redux库生产</td>
+</tr>
+</tbody></table>
+<p>react-redux有个最重要的方法：<strong>connect()</strong><br><code>connect([mapStateToProps],[mapDispatchToProps],[mergeProps],[options]);</code><br>connect()是用来连接容器组件和展示组件。它的核心是将开发者定义的组件，包装转换生成容器组件。所生成的容器组件能使用Redux store中的那些数据，全由connect()的参数来确定。<br>一般用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">connect</span>(mapStateToProps,mapDispatchToProps)(presentationalComponent);</span><br></pre></td></tr></table></figure>
+<p>第一次执行的第一个参数是一个函数，其作用是给返回的组件注入props，这个props来自Redux store中的状态。所以这个函数一定要返回一个纯JavaScript对象。第一次的第二个参数可以是一个函数也可以是一个对象，如果是一个函数，则这个函数接收dispatch()以及容器的props作为参数，最终也返回一个对象；如果是一个对象，那么兼键值应该是一个函数，用来描述action的生成。第二次执行的参数是接收一个正常的展示组件，并在这基础上返回一个容器组件。<br>mapStateToProps一般编写形式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">mapStateToProps</span> = (<span class="params">state</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">value</span>:state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它完成从store中选取数据并通过props传递给将要创建的容器组件。</p>
+<p>mapDispatchToProps一般编写形式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 接收函数</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">mapDispatchToProps</span> = (<span class="params">dispatch,ownProps</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">onAct</span>:<span class="function">() =&gt;</span> <span class="title function_">dispatch</span>(&#123;</span><br><span class="line">            <span class="attr">type</span>:<span class="string">&#x27;CLICK_ACTION&#x27;</span>,</span><br><span class="line">            <span class="attr">data</span>:ownProps.<span class="property">data</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 接收对象</span></span><br><span class="line"><span class="keyword">const</span> mapDispatchToProps = &#123;</span><br><span class="line">    <span class="attr">onAct</span>:<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="attr">type</span>:<span class="string">&#x27;CLICK_ACTION&#x27;</span>,</span><br><span class="line">        <span class="attr">data</span>:data</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>mapStateToProps和mapDispatchToProps定义了展示组件需要用到的store内容。其中mapStateToProps负责输入逻辑，就是将状态数据映射到展示组件的参数（props）上；后者负责输出逻辑，即将用户对展示组件的操作映射成action。<br>两者个参数是可选的。当只有前者的参数时，默认情况下，dispatch()会注入最后返回的容器组件的props中，而只有后者则把前者填上null。两个都忽略时，Redux store的状态数据无法传递下来，因此返回的容器组件就不会监听store的任何变化。<br>最后，react-redux提供了Provider组件，一般用法是需要将Provider作为整个应用的根组件，并获取store为其prop，以便后续进行下发处理。<br>所以，在开发中，借助于react-redux的基本模式如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title class_">App</span> = <span class="title function_">connect</span>(mapStateToProps,mapDispatchToProps)(presentationalComponent);</span><br><span class="line"><span class="title class_">ReactDom</span>.<span class="title function_">render</span>(</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">App</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p><em>注：读完《React状态管理与同构实战》第三章的理解</em></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/22/%E7%90%86%E8%A7%A3JavaScript%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="prev" title="理解JavaScript数据结构与算法">
+      <i class="fa fa-chevron-left"></i> 理解JavaScript数据结构与算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/22/%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%AE%97%E6%B3%95/" rel="next" title="基本的算法（概念篇）">
+      基本的算法（概念篇） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Redux%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">1.Redux是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">设计哲学：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Redux%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%E5%92%8C%E5%AE%9E%E8%B7%B5"><span class="nav-number">2.</span> <span class="nav-text">2.Redux基本使用和实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#store"><span class="nav-number">2.1.</span> <span class="nav-text">store</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#action"><span class="nav-number">2.2.</span> <span class="nav-text">action</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reducer"><span class="nav-number">2.3.</span> <span class="nav-text">reducer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Redux%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80"><span class="nav-number">3.</span> <span class="nav-text">3.Redux开发基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Redux%E6%9E%B6%E6%9E%84%E4%B8%8B%E4%BF%9D%E8%AF%81reducer%E7%9A%84%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">在Redux架构下保证reducer的不可变性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C"><span class="nav-number">3.1.1.</span> <span class="nav-text">1).数组操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AF%B9%E8%B1%A1%E6%93%8D%E4%BD%9C"><span class="nav-number">3.1.2.</span> <span class="nav-text">2).对象操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux%E4%B8%AD%E9%97%B4%E4%BB%B6%E5%92%8C%E5%BC%82%E6%AD%A5"><span class="nav-number">3.2.</span> <span class="nav-text">Redux中间件和异步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8BRedux%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">3.2.1.</span> <span class="nav-text">初始Redux中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux%E7%9A%84%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86"><span class="nav-number">3.2.2.</span> <span class="nav-text">Redux的异步处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E7%BB%93%E5%90%88react%E4%BD%BF%E7%94%A8redux"><span class="nav-number">4.</span> <span class="nav-text">4.结合react使用redux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8react-redux%E5%BA%93"><span class="nav-number">4.1.</span> <span class="nav-text">使用react-redux库</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">csd</p>
+  <div class="site-description" itemprop="description">记录前端以及node.js知识</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">csd</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

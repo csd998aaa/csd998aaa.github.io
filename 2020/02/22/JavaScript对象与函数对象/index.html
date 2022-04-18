@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="函数对象与其他对象的区别JavaScript中的函数和其他对象最大的区别在于它们有一个特殊的内部属性[[Call]]，包含了该函数的执行指令。typeof操作符会在对象内查找这个内部属性，若找到则返回”function” call() apply() bind() 三者的区别第一个参数都是传给新函数this的值，call()和apply()的区别仅传人参数形式不同，call()第二个参数起接收参数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript对象与函数对象">
+<meta property="og:url" content="http://example.com/2020/02/22/JavaScript%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="记录前端&amp;Node.js以及生活琐事">
+<meta property="og:description" content="函数对象与其他对象的区别JavaScript中的函数和其他对象最大的区别在于它们有一个特殊的内部属性[[Call]]，包含了该函数的执行指令。typeof操作符会在对象内查找这个内部属性，若找到则返回”function” call() apply() bind() 三者的区别第一个参数都是传给新函数this的值，call()和apply()的区别仅传人参数形式不同，call()第二个参数起接收参数">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/articleImgs/prototype%E5%AE%9E%E4%BE%8B%E5%8E%9F%E5%9E%8B.png">
+<meta property="article:published_time" content="2020-02-22T04:24:24.000Z">
+<meta property="article:modified_time" content="2018-09-19T08:03:54.000Z">
+<meta property="article:author" content="csd">
+<meta property="article:tag" content="funbfe 博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/articleImgs/prototype%E5%AE%9E%E4%BE%8B%E5%8E%9F%E5%9E%8B.png">
+
+<link rel="canonical" href="http://example.com/2020/02/22/JavaScript%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>JavaScript对象与函数对象 | 记录前端&Node.js以及生活琐事</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">记录前端&Node.js以及生活琐事</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/02/22/JavaScript%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="csd">
+      <meta itemprop="description" content="记录前端以及node.js知识">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录前端&Node.js以及生活琐事">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript对象与函数对象
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-22 12:24:24" itemprop="dateCreated datePublished" datetime="2020-02-22T12:24:24+08:00">2020-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-09-19 16:03:54" itemprop="dateModified" datetime="2018-09-19T16:03:54+08:00">2018-09-19</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="函数对象与其他对象的区别"><a href="#函数对象与其他对象的区别" class="headerlink" title="函数对象与其他对象的区别"></a>函数对象与其他对象的区别</h2><p>JavaScript中的函数和其他对象最大的区别在于它们有一个特殊的内部属性[[Call]]，包含了该函数的执行指令。typeof操作符会在对象内查找这个内部属性，若找到则返回”function”</p>
+<h2 id="call-apply-bind-三者的区别"><a href="#call-apply-bind-三者的区别" class="headerlink" title="call() apply() bind() 三者的区别"></a>call() apply() bind() 三者的区别</h2><p>第一个参数都是传给新函数this的值，call()和apply()的区别仅传人参数形式不同，call()第二个参数起接收参数列表，而apply()第二个参数接收数组或类数组。而bind()跟call()一样，不同的是第二个参数起会被永久设置在新函数中的形参。</p>
+<h2 id="JavaScript对象定义属性"><a href="#JavaScript对象定义属性" class="headerlink" title="JavaScript对象定义属性"></a>JavaScript对象定义属性</h2><p>当一个属性第一次被添加对象时，JavaScript在对象上调用一个名为[[Put]]的内部方法。[[Put]]方法会在对象上创建一个新节点来保存属性，这个操作不仅指定了初始的值，也定义了属性上的一些特征。<br>当一个已有属性被赋予新值时，调用的是[[Set]]方法。<br>delete操作符会对单个对象属性调用名为[[Delete]]内部方法。delete仅对自有属性有效。</p>
+<h2 id="查找对象属性"><a href="#查找对象属性" class="headerlink" title="查找对象属性"></a>查找对象属性</h2><p>in操作符会检查自有属性和原型属性<br>hasOwnProperty()只检查自有属性</p>
+<h2 id="属性枚举"><a href="#属性枚举" class="headerlink" title="属性枚举"></a>属性枚举</h2><p>for-in循环返回的和Object.keys()返回的可枚举属性的区别：for-in循环遍历自有属性和原型属性，而Object.keys()只返回自有属性名字的数组。</p>
+<h2 id="属性通用特征"><a href="#属性通用特征" class="headerlink" title="属性通用特征"></a>属性通用特征</h2><p>数据和访问器属性都具有[[Enumerable]]和[[Configurable]]（布尔值）。如果想改变属性特征，可以使用Object.defineProperty(obj,proName,descript)，当调用这个方法时，应该要指定descript所有值，否则布尔类型的值都是false。<br>定义多重属性可以用Object.defineProperties(obj,proObj)<br>获取属性特征可以用Object.getOwnPropertyDescriptor(obj,proName)</p>
+<h2 id="数据属性特征"><a href="#数据属性特征" class="headerlink" title="数据属性特征"></a>数据属性特征</h2><p>[[Value]]所有属性的值都保存在这。<br>[[Writable]]是一个布尔值，指示该属性是否可以写入。</p>
+<h2 id="访问器属性特征"><a href="#访问器属性特征" class="headerlink" title="访问器属性特征"></a>访问器属性特征</h2><p>[[Get]]读取属性值 [[Set]]设置属性值；内涵getter和setter函数。</p>
+<h2 id="构造函数与原型对象"><a href="#构造函数与原型对象" class="headerlink" title="构造函数与原型对象"></a>构造函数与原型对象</h2><p>每个对象在创建时都自动拥有一个构造函数属性，其中包含了一个指向其构造函数的引用。那些通过字面量或者Object构造函数创建的泛用对象，其构造函数属性指向Object，而通过自定义构造函数创建的对象则指向创建它的构造函数。<br>当调用构造函数时，new会自动创建this对象，且其类型就是构造函数的类型。也可以在构造函数显式调用return。如果返回值是一个对象则返回该对象，否则返回新创建的对象实例。</p>
+<h3 id="Prototype-属性"><a href="#Prototype-属性" class="headerlink" title="[[Prototype]]属性"></a>[[Prototype]]属性</h3><p>一个对象实例通过内部属性[[Prototype]]跟踪其原型对象。该属性是一个指向该实例使用的原型对象的人指针。当用new创建一个新的对象时，构造函数的原型对象会被赋给该对象[[Prototype]]属性。<br><img src="/articleImgs/prototype%E5%AE%9E%E4%BE%8B%E5%8E%9F%E5%9E%8B.png" alt="avatar"><br>当读取一个对象属性时，JavaScript引擎首先在该对象上的自有属性中查找属性名字。如果找到则返回。如果自有属性中不包含改名字，则会搜索[[Prototype]]中的对象，找到则返回，直至找到末端Object.prototype。<br>无法给一个对象的原型属性赋值。</p>
+<h2 id="对象继承"><a href="#对象继承" class="headerlink" title="对象继承"></a>对象继承</h2><p>对象字面量会隐式指定Object.prototype为其[[Prototype]]，当然也可以使用Object.create()方法显式指定。第一个参数是需要被设置新对象的[[Prototype]]，第二个参数是属性描述对象。也可以使用它来创建一个没有原型链的对象。<br><code>var nakedObj = Object.create(null);</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/22/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/22/DOM%E6%93%8D%E4%BD%9C/" rel="next" title="DOM的基本操作">
+      DOM的基本操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1%E4%B8%8E%E5%85%B6%E4%BB%96%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">函数对象与其他对象的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-apply-bind-%E4%B8%89%E8%80%85%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">call() apply() bind() 三者的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript%E5%AF%B9%E8%B1%A1%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">JavaScript对象定义属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">查找对象属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E6%9E%9A%E4%B8%BE"><span class="nav-number">5.</span> <span class="nav-text">属性枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E9%80%9A%E7%94%A8%E7%89%B9%E5%BE%81"><span class="nav-number">6.</span> <span class="nav-text">属性通用特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%B1%9E%E6%80%A7%E7%89%B9%E5%BE%81"><span class="nav-number">7.</span> <span class="nav-text">数据属性特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E5%99%A8%E5%B1%9E%E6%80%A7%E7%89%B9%E5%BE%81"><span class="nav-number">8.</span> <span class="nav-text">访问器属性特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1"><span class="nav-number">9.</span> <span class="nav-text">构造函数与原型对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Prototype-%E5%B1%9E%E6%80%A7"><span class="nav-number">9.1.</span> <span class="nav-text">[[Prototype]]属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%BB%A7%E6%89%BF"><span class="nav-number">10.</span> <span class="nav-text">对象继承</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">csd</p>
+  <div class="site-description" itemprop="description">记录前端以及node.js知识</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">csd</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
